@@ -28,7 +28,7 @@ export default function FeaturedProducts() {
         const fetchFeaturedProducts = async () => {
             try {
                 const response = await api.get('/products/featured');
-                setProducts(response.data.data.slice(0, 6));
+                setProducts(response.data.products.slice(0, 6));
             } catch (error) {
                 console.error('Error fetching featured products:', error);
             } finally {
