@@ -116,7 +116,7 @@ export default function Hero() {
     return (
         <>
             {/* First Hero Section - Video Only */}
-            <section ref={sectionRef1} className="relative h-screen flex items-center justify-center overflow-hidden bg-black">
+            <section ref={sectionRef1} className="relative h-[500px] sm:h-[600px] md:h-[700px] lg:h-[800px] mt-16 md:mt-20 flex items-center justify-center overflow-hidden bg-black">
                 <div className="relative w-full h-full z-10">
                     <motion.div
                         initial={{ opacity: 0, scale: 0.95 }}
@@ -124,7 +124,7 @@ export default function Hero() {
                         transition={{ duration: 1 }}
                         className="relative w-full h-full"
                     >
-                        <div className="relative w-full aspect-video overflow-hidden shadow-2xl group">
+                        <div className="relative w-full h-full overflow-hidden shadow-2xl group">
                             <video
                                 ref={videoRef1}
                                 autoPlay
@@ -193,11 +193,11 @@ export default function Hero() {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 0.5 }}
-                            className="absolute bottom-8 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-sm px-6 py-3 rounded-full shadow-2xl border border-primary-100 z-20"
+                            className="absolute bottom-16 md:bottom-20 left-1/2 transform -translate-x-1/2 bg-white/95 backdrop-blur-sm px-4 md:px-6 py-2 md:py-3 rounded-full shadow-2xl border border-primary-100 z-20"
                         >
                             <div className="flex items-center space-x-2">
-                                <span className="text-2xl">💎</span>
-                                <span className="font-bold text-gray-800">Exquisite Diamond Collection</span>
+                                <span className="text-xl md:text-2xl">💎</span>
+                                <span className="font-bold text-gray-800 text-sm md:text-base">Exquisite Diamond Collection</span>
                             </div>
                         </motion.div>
                     </motion.div>
@@ -211,7 +211,7 @@ export default function Hero() {
                         repeat: Infinity,
                         ease: "easeInOut",
                     }}
-                    className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+                    className="absolute bottom-4 md:bottom-8 left-1/2 transform -translate-x-1/2 z-20"
                 >
                     <div className="w-6 h-10 border-2 border-white/50 rounded-full flex items-start justify-center p-2">
                         <motion.div
