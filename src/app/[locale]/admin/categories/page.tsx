@@ -71,9 +71,10 @@ export default function CategoriesPage() {
         setExpandedCategories(newExpanded);
     };
 
-    const renderCategory = (category: Category, depth: number = 0) => {
+    const renderCategory = (category: Category, depth: number = 0, parentPath: string = '') => {
         const hasChildren = category?.children && category?.children?.length > 0;
         const isExpanded = expandedCategories.has(category?._id);
+        const currentPath = parentPath ? `${parentPath} > ${category?.nameEn}` : category?.nameEn;
 
         return (
             <div key={category?._id}>
@@ -94,11 +95,16 @@ export default function CategoriesPage() {
                         )}
                         {!hasChildren && <div className="w-4" />}
 
-                        <div>
+                        <div className="flex-1">
                             <h3 className="font-semibold text-gray-800">{category?.nameEn || 'N/A'}</h3>
                             <p className="text-sm text-gray-600">
                                 {category?.nameUr || 'N/A'} | {category?.nameAr || 'N/A'}
                             </p>
+                            {depth > 0 && (
+                                <p className="text-xs text-gray-500 mt-1">
+                                    Path: {currentPath}
+                                </p>
+                            )}
                         </div>
                     </div>
 
@@ -146,7 +152,7 @@ export default function CategoriesPage() {
 
                 {hasChildren && isExpanded && (
                     <div>
-                        {category?.children?.map((child) => renderCategory(child, depth + 1))}
+                        {category?.children?.map((child) => renderCategory(child, depth + 1, currentPath))}
                     </div>
                 )}
             </div>

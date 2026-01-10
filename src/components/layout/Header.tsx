@@ -35,7 +35,7 @@ export default function Header() {
 
     return (
         <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white shadow-lg py-4' : 'bg-white/95 backdrop-blur-md py-6'
+            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${isScrolled ? 'bg-black/95 backdrop-blur-lg shadow-lg shadow-primary-500/10 border-primary-500/20 py-4' : 'bg-black/90 backdrop-blur-md border-primary-500/10 py-6'
                 }`}
         >
             <div className="container mx-auto px-4">
@@ -62,7 +62,7 @@ export default function Header() {
                             >
                                 <Link
                                     href={link.href}
-                                    className="text-gray-700 hover:text-primary-600 transition-colors duration-300 font-medium"
+                                    className="text-gray-300 hover:text-primary-400 transition-colors duration-300 font-medium"
                                 >
                                     {link.label}
                                 </Link>
@@ -77,10 +77,10 @@ export default function Header() {
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setIsSearchOpen(!isSearchOpen)}
-                            className="p-2 hover:bg-gray-100 rounded-full transition-colors"
+                            className="p-2 hover:bg-primary-500/10 rounded-full transition-colors"
                             aria-label="Search"
                         >
-                            <FiSearch className="w-5 h-5 text-gray-700" />
+                            <FiSearch className="w-5 h-5 text-primary-400" />
                         </motion.button>
 
                         {/* Language Switcher */}
@@ -91,15 +91,15 @@ export default function Header() {
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="relative p-2 hover:bg-gray-100 rounded-full transition-colors"
+                                className="relative p-2 hover:bg-primary-500/10 rounded-full transition-colors"
                                 aria-label="Shopping Cart"
                             >
-                                <FiShoppingCart className="w-5 h-5 text-gray-700" />
+                                <FiShoppingCart className="w-5 h-5 text-primary-400" />
                                 {totalItems > 0 && (
                                     <motion.span
                                         initial={{ scale: 0 }}
                                         animate={{ scale: 1 }}
-                                        className="absolute -top-1 -right-1 bg-primary-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"
+                                        className="absolute -top-1 -right-1 bg-primary-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"
                                     >
                                         {totalItems}
                                     </motion.span>
@@ -112,13 +112,13 @@ export default function Header() {
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 0.95 }}
                             onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="lg:hidden p-2 hover:bg-gray-100 rounded-full transition-colors"
+                            className="lg:hidden p-2 hover:bg-primary-500/10 rounded-full transition-colors"
                             aria-label="Menu"
                         >
                             {isMenuOpen ? (
-                                <FiX className="w-6 h-6 text-gray-700" />
+                                <FiX className="w-6 h-6 text-primary-400" />
                             ) : (
-                                <FiMenu className="w-6 h-6 text-gray-700" />
+                                <FiMenu className="w-6 h-6 text-primary-400" />
                             )}
                         </motion.button>
                     </div>
@@ -136,7 +136,7 @@ export default function Header() {
                             <input
                                 type="search"
                                 placeholder={t('searchPlaceholder')}
-                                className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none transition-colors"
+                                className="w-full px-4 py-3 rounded-lg bg-secondary-900 border-2 border-primary-500/30 text-gray-200 placeholder-gray-500 focus:border-primary-500 focus:outline-none transition-colors"
                                 autoFocus
                             />
                         </motion.div>
@@ -150,14 +150,14 @@ export default function Header() {
                             initial={{ opacity: 0, height: 0 }}
                             animate={{ opacity: 1, height: 'auto' }}
                             exit={{ opacity: 0, height: 0 }}
-                            className="lg:hidden mt-4 pb-4 border-t border-gray-200 pt-4"
+                            className="lg:hidden mt-4 pb-4 border-t border-primary-500/20 pt-4"
                         >
                             {navLinks.map((link) => (
                                 <Link
                                     key={link.href}
                                     href={link.href}
                                     onClick={() => setIsMenuOpen(false)}
-                                    className="block py-3 text-gray-700 hover:text-primary-600 hover:bg-gray-50 px-4 rounded-lg transition-colors"
+                                    className="block py-3 text-gray-300 hover:text-primary-400 hover:bg-primary-500/10 px-4 rounded-lg transition-colors"
                                 >
                                     {link.label}
                                 </Link>

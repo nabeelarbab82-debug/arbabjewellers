@@ -50,7 +50,7 @@ export default async function RootLayout({
 
     return (
         <html lang={locale} dir={locale === 'ar' || locale === 'ur' ? 'rtl' : 'ltr'}>
-            <body className={`${inter.variable} ${playfair.variable} ${notoNastaliq.variable} font-sans antialiased`}>
+            <body className={`${inter.variable} ${playfair.variable} ${notoNastaliq.variable} font-sans antialiased bg-black text-gray-100`}>
                 <NextIntlClientProvider messages={messages}>
                     {children}
                     <Toaster
@@ -58,13 +58,14 @@ export default async function RootLayout({
                         toastOptions={{
                             duration: 3000,
                             style: {
-                                background: '#363636',
-                                color: '#fff',
+                                background: '#1a1a1a',
+                                color: '#fbbf24',
+                                border: '1px solid #d97706',
                             },
                             success: {
                                 iconTheme: {
-                                    primary: '#d68d47',
-                                    secondary: '#fff',
+                                    primary: '#fbbf24',
+                                    secondary: '#000',
                                 },
                             },
                         }}

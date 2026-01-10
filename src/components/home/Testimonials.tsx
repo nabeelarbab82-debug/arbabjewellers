@@ -43,7 +43,7 @@ export default function Testimonials() {
     ];
 
     return (
-        <section className="py-20 bg-white">
+        <section className="py-20 bg-black border-t border-primary-900/20">
             <div className="container mx-auto px-4">
                 {/* Section Header */}
                 <motion.div
@@ -56,7 +56,7 @@ export default function Testimonials() {
                         initial={{ opacity: 0, scale: 0.5 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         viewport={{ once: true }}
-                        className="inline-block px-4 py-2 bg-secondary-100 text-secondary-700 rounded-full text-sm font-semibold mb-4"
+                        className="inline-block px-4 py-2 bg-primary-500/10 text-primary-500 border border-primary-500/30 rounded-full text-sm font-semibold mb-4"
                     >
                         {t('subtitle')}
                     </motion.span>
@@ -65,7 +65,7 @@ export default function Testimonials() {
                         {t('title')}
                     </h2>
 
-                    <p className="text-lg text-gray-600">
+                    <p className="text-lg text-gray-400">
                         {t('description')}
                     </p>
                 </motion.div>
@@ -103,7 +103,7 @@ export default function Testimonials() {
                             <SwiperSlide key={index}>
                                 <motion.div
                                     whileHover={{ y: -8 }}
-                                    className="bg-gradient-to-br from-gray-50 to-white p-8 rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 h-full"
+                                    className="bg-secondary-900 border border-primary-500/20 p-8 rounded-2xl shadow-lg shadow-primary-500/10 hover:shadow-2xl hover:shadow-primary-500/20 transition-all duration-300 h-80 flex flex-col"
                                 >
                                     {/* Rating */}
                                     <div className="flex items-center space-x-1 mb-4">
@@ -113,21 +113,21 @@ export default function Testimonials() {
                                     </div>
 
                                     {/* Text */}
-                                    <p className="text-gray-700 leading-relaxed mb-6 italic">
+                                    <p className="text-gray-300 leading-relaxed mb-6 italic flex-1 line-clamp-4">
                                         "{testimonial.text}"
                                     </p>
 
                                     {/* Author */}
-                                    <div className="flex items-center space-x-4 pt-4 border-t border-gray-200">
+                                    <div className="flex items-center space-x-4 pt-4 border-t border-primary-500/20 mt-auto">
                                         <motion.img
                                             whileHover={{ scale: 1.1 }}
                                             src={testimonial.image}
                                             alt={testimonial.name}
-                                            className="w-12 h-12 rounded-full object-cover ring-4 ring-primary-100"
+                                            className="w-12 h-12 rounded-full object-cover ring-4 ring-primary-500/30"
                                         />
                                         <div>
-                                            <div className="font-semibold text-gray-800">{testimonial.name}</div>
-                                            <div className="text-sm text-gray-600">{testimonial.role}</div>
+                                            <div className="font-semibold text-primary-400">{testimonial.name}</div>
+                                            <div className="text-sm text-gray-400">{testimonial.role}</div>
                                         </div>
                                     </div>
                                 </motion.div>

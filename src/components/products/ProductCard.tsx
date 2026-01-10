@@ -29,7 +29,7 @@ export default function ProductCard({ product }: ProductCardProps) {
             className="group"
         >
             <Link href={`/${locale}/products/${product._id}`}>
-                <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300">
+                <div className="bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 h-full flex flex-col">
                     {/* Image */}
                     <div className="relative aspect-square overflow-hidden bg-gray-100">
                         <motion.img
@@ -61,15 +61,14 @@ export default function ProductCard({ product }: ProductCardProps) {
                     </div>
 
                     {/* Content */}
-                    <div className="p-6">
-                        <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors">
+                    <div className="p-6 flex-1 flex flex-col">
+                        <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2 group-hover:text-primary-600 transition-colors flex-1">
                             {product.name}
                         </h3>
 
-                        <div className="flex items-center justify-between">
-                            <span className="text-2xl font-bold gradient-text">
-                                {tCommon('currency')} {product.price.toLocaleString()}
-                            </span>
+                        <div className="flex items-center justify-between mt-auto">\n                            <span className="text-2xl font-bold gradient-text">
+                            {tCommon('currency')} {product.price.toLocaleString()}
+                        </span>
 
                             <motion.div
                                 whileHover={{ scale: 1.1, rotate: 5 }}

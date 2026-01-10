@@ -19,6 +19,7 @@ interface Category {
     image?: string;
     order?: number;
     isActive?: boolean;
+    children?: Category[];
 }
 
 interface CategoryModalProps {
@@ -36,7 +37,12 @@ export default function CategoryModal({
     editingCategory,
     parentCategory,
 }: CategoryModalProps) {
-    const [categories, setCategories] = useState<any[]>([]);
+    const [categories, setCategories] = useState<Category[]>([]);
+    const [mainCategories, setMainCategories] = useState<Category[]>([]);
+    const [subCategories, setSubCategories] = useState<Category[]>([]);
+    const [selectedMainCategory, setSelectedMainCategory] = useState('');
+    const [selectedSubCategory, setSelectedSubCategory] = useState('');
+    
     const [formData, setFormData] = useState<Category>({
         nameEn: '',
         nameUr: '',
@@ -98,28 +104,59 @@ export default function CategoryModal({
             image: '',
             order: 0,
         });
+        setSelectedMainCategory('');
+        setSelectedSubCategory('');
     };
 
     const fetchCategories = async () => {
         try {
             const response = await api.get('/categories');
-            setCategories(response.data.data || []);
+            const allCats = response.data.data || [];
+            setCategories(allCats);
+            setMainCategories(allCats.filter((cat: Category) => cat.level === 1));
         } catch (error) {
             toast.error('Failed to fetch categories');
         }
     };
 
-    const flattenCategories = (cats: any[], level: number = 1, prefix: string = ''): any[] => {
-        let result: any[] = [];
-        cats.forEach((cat) => {
-            if (level < 3) {
-                result.push({ ...cat, nameEn: prefix + cat.nameEn });
-                if (cat.children && cat.children.length > 0) {
-                    result = result.concat(flattenCategories(cat.children, level + 1, prefix + '  '));
-                }
-            }
-        });
-        return result;
+    const handleMainCategoryChange = (mainCatId: string) => {
+        setSelectedMainCategory(mainCatId);
+        setSelectedSubCategory('');
+        
+        if (mainCatId) {
+            const mainCat = mainCategories.find(cat => cat._id === mainCatId);
+            setSubCategories(mainCat?.children || []);
+            setFormData({
+                ...formData,
+                parent: mainCatId,
+                level: 2
+            });
+        } else {
+            setSubCategories([]);
+            setFormData({
+                ...formData,
+                parent: '',
+                level: 1
+            });
+        }
+    };
+
+    const handleSubCategoryChange = (subCatId: string) => {
+        setSelectedSubCategory(subCatId);
+        
+        if (subCatId) {
+            setFormData({
+                ...formData,
+                parent: subCatId,
+                level: 3
+            });
+        } else if (selectedMainCategory) {
+            setFormData({
+                ...formData,
+                parent: selectedMainCategory,
+                level: 2
+            });
+        }
     };
 
     const handleSubmit = async (e: React.FormEvent) => {
@@ -160,8 +197,6 @@ export default function CategoryModal({
 
     if (!isOpen) return null;
 
-    const availableParents = flattenCategories(categories).filter((cat) => cat.level < 3);
-
     return (
         <AnimatePresence>
             <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
@@ -182,6 +217,9 @@ export default function CategoryModal({
                                     Parent: {parentCategory.nameEn} (Level {parentCategory.level})
                                 </p>
                             )}
+                            <p className="text-sm text-primary-600 mt-1 font-semibold">
+                                Creating Level {formData.level} Category
+                            </p>
                         </div>
                         <button onClick={onClose} className="p-2 hover:bg-gray-100 rounded-lg">
                             <FiX className="w-6 h-6" />
@@ -190,34 +228,57 @@ export default function CategoryModal({
 
                     {/* Form */}
                     <form onSubmit={handleSubmit} className="p-6 space-y-6">
-                        {/* Parent Category */}
-                        {!parentCategory && (
-                            <div>
-                                <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                    Parent Category (Optional)
-                                </label>
-                                <select
-                                    value={formData.parent}
-                                    onChange={(e) => {
-                                        const selectedParent = availableParents.find((c) => c._id === e.target.value);
-                                        setFormData({
-                                            ...formData,
-                                            parent: e.target.value,
-                                            level: selectedParent ? selectedParent.level + 1 : 1,
-                                        });
-                                    }}
-                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
-                                >
-                                    <option value="">-- Top Level Category --</option>
-                                    {availableParents.map((cat) => (
-                                        <option key={cat._id} value={cat._id}>
-                                            {cat.nameEn} (Level {cat.level})
-                                        </option>
-                                    ))}
-                                </select>
-                                <p className="text-xs text-gray-500 mt-1">
-                                    This will be a Level {formData.level} category. Maximum 3 levels allowed.
-                                </p>
+                        {/* Hierarchical Parent Selection */}
+                        {!parentCategory && !editingCategory && (
+                            <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-4">
+                                <h3 className="font-semibold text-gray-800 mb-2">Category Hierarchy</h3>
+                                
+                                {/* Main Category Selection */}
+                                <div>
+                                    <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                        1. Main Category (Optional - Leave empty for Level 1)
+                                    </label>
+                                    <select
+                                        value={selectedMainCategory}
+                                        onChange={(e) => handleMainCategoryChange(e.target.value)}
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                    >
+                                        <option value="">-- Create Main Category (Level 1) --</option>
+                                        {mainCategories.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>
+                                                {cat.nameEn}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+
+                                {/* Sub Category Selection */}
+                                {selectedMainCategory && subCategories.length > 0 && (
+                                    <div>
+                                        <label className="block text-sm font-semibold text-gray-700 mb-2">
+                                            2. Sub Category (Optional - Leave empty for Level 2 under selected Main)
+                                        </label>
+                                        <select
+                                            value={selectedSubCategory}
+                                            onChange={(e) => handleSubCategoryChange(e.target.value)}
+                                            className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                        >
+                                            <option value="">-- Create Sub Category (Level 2) --</option>
+                                            {subCategories.map((cat) => (
+                                                <option key={cat._id} value={cat._id}>
+                                                    {cat.nameEn}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                )}
+
+                                <div className="text-sm text-gray-600 bg-white p-3 rounded border border-gray-200">
+                                    <strong>Current Selection:</strong>
+                                    {!selectedMainCategory && ' Creating a Main Category (Level 1)'}
+                                    {selectedMainCategory && !selectedSubCategory && ' Creating a Sub Category (Level 2)'}
+                                    {selectedMainCategory && selectedSubCategory && ' Creating a Base Category (Level 3)'}
+                                </div>
                             </div>
                         )}
 

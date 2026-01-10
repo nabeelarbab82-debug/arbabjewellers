@@ -169,7 +169,7 @@ export default function CategoryPage() {
                                 <Link key={subcat._id} href={`/${locale}/categories/${subcat.slug}`}>
                                     <motion.div
                                         whileHover={{ y: -5 }}
-                                        className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 text-center"
+                                        className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 text-center h-32 flex items-center justify-center"
                                     >
                                         <h3 className="text-lg font-semibold text-gray-800">{subcat.nameEn}</h3>
                                     </motion.div>
@@ -234,7 +234,7 @@ function ProductCard({ product, viewMode, index }: { product: Product; viewMode:
                 transition={{ duration: 0.5, delay: index * 0.05 }}
             >
                 <Link href={`/${locale}/products/${product._id}`}>
-                    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 flex overflow-hidden">
+                    <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 flex overflow-hidden h-48">
                         <div className="w-48 h-48 flex-shrink-0">
                             <img
                                 src={product.images[0] || 'https://via.placeholder.com/400'}
@@ -268,7 +268,7 @@ function ProductCard({ product, viewMode, index }: { product: Product; viewMode:
             onHoverEnd={() => setIsHovered(false)}
         >
             <Link href={`/${locale}/products/${product._id}`}>
-                <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group">
+                <div className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden group h-full flex flex-col">
                     <div className="relative aspect-square overflow-hidden">
                         <motion.img
                             src={product.images[0] || 'https://via.placeholder.com/400'}
@@ -283,8 +283,8 @@ function ProductCard({ product, viewMode, index }: { product: Product; viewMode:
                             </div>
                         )}
                     </div>
-                    <div className="p-6">
-                        <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2">
+                    <div className="p-6 flex-1 flex flex-col">
+                        <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2 flex-1">
                             {product.nameEn || product.name}
                         </h3>
                         <div className="flex items-center gap-2">
