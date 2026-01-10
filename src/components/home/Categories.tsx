@@ -9,9 +9,14 @@ import api from '@/lib/axios';
 
 interface Category {
     _id: string;
-    name: string;
+    name?: string;
+    nameEn: string;
+    nameUr: string;
+    nameAr: string;
+    slug: string;
     image?: string;
     level: number;
+    children?: Category[];
 }
 
 export default function Categories() {
@@ -24,8 +29,10 @@ export default function Categories() {
     useEffect(() => {
         const fetchCategories = async () => {
             try {
-                const response = await api.get('/categories?level=1');
-                setCategories(response.data.data.slice(0, 6));
+                const response = await api.get('/categories');
+                // Filter only level 1 (main categories) and show first 4
+                const mainCategories = response.data.data.filter((cat: Category) => cat.level === 1).slice(0, 4);
+                setCategories(mainCategories);
             } catch (error) {
                 console.error('Error fetching categories:', error);
             } finally {
@@ -68,8 +75,8 @@ export default function Categories() {
 
                 {/* Categories Grid */}
                 {loading ? (
-                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6">
-                        {[...Array(6)].map((_, index) => (
+                    <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+                        {[...Array(4)].map((_, index) => (
                             <div key={index} className="skeleton h-48 rounded-2xl" />
                         ))}
                     </div>
@@ -86,7 +93,7 @@ export default function Categories() {
                                 },
                             },
                         }}
-                        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-6"
+                        className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"
                     >
                         {categories.map((category, index) => (
                             <motion.div
@@ -96,35 +103,29 @@ export default function Categories() {
                                     visible: { opacity: 1, scale: 1 },
                                 }}
                             >
-                                <Link href={`/${locale}/categories/${category._id}`}>
+                                <Link href={`/${locale}/categories/${category.slug || category._id}`}>
                                     <motion.div
                                         whileHover={{ y: -8, scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
-                                        className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 text-center cursor-pointer"
+                                        className="group relative bg-white rounded-2xl shadow-lg hover:shadow-2xl transition-all duration-300 text-center cursor-pointer overflow-hidden"
                                     >
-                                        <motion.div
-                                            animate={{
-                                                rotate: [0, 5, -5, 0],
-                                            }}
-                                            transition={{
-                                                duration: 4,
-                                                repeat: Infinity,
-                                                delay: index * 0.2,
-                                            }}
-                                            className="text-5xl mb-4"
-                                        >
-                                            {categoryIcons[index % categoryIcons.length]}
-                                        </motion.div>
+                                        {/* Category Image Background */}
+                                        <div className="relative h-48 overflow-hidden">
+                                            <img
+                                                src={category.image || 'https://images.unsplash.com/photo-1515562141207-7a88fb7ce338?w=600'}
+                                                alt={category.nameEn}
+                                                className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                                            />
+                                            <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                                        </div>
 
-                                        <h3 className="text-lg font-semibold text-gray-800 group-hover:text-primary-600 transition-colors">
-                                            {category.name}
-                                        </h3>
+                                        {/* Category Name Overlay */}
+                                        <div className="absolute inset-0 flex items-end justify-center p-6">
+                                            <h3 className="text-xl font-semibold text-white drop-shadow-lg">
+                                                {locale === 'ar' ? category.nameAr : locale === 'ur' ? category.nameUr : category.nameEn}
+                                            </h3>
+                                        </div>
 
-                                        <motion.div
-                                            initial={{ width: 0 }}
-                                            whileHover={{ width: '100%' }}
-                                            className="h-0.5 bg-gradient-to-r from-primary-600 to-secondary-600 mt-4 mx-auto"
-                                        />
                                     </motion.div>
                                 </Link>
                             </motion.div>

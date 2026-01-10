@@ -48,7 +48,16 @@
   "categories": {
     "title": "Shop by Category",
     "subtitle": "Find Your Perfect Piece",
-    "description": "Browse our extensive collection of fine jewelry"
+    "description": "Explore our curated collections",
+    "heroTitle": "Shop by Category",
+    "heroDescription": "Explore our exquisite collection of fine jewelry organized by category"
+  },
+  "category": {
+    "backToCategories": "Back to Categories",
+    "subcategories": "Subcategories",
+    "products": "Products",
+    "noProducts": "No products found in this category",
+    "viewMode": "View Mode"
   },
   "about": {
     "title": "About Arbab Jewellers",
