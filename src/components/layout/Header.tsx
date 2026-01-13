@@ -38,7 +38,7 @@ export default function Header() {
         <>
             {/* Top Bar - Hidden on Mobile */}
             <div className="hidden lg:block fixed top-0 left-0 right-0 z-50 bg-black border-b border-primary-500/10">
-                <div className="container mx-auto px-4 py-2">
+                <div className="container mx-auto px-4 py-1.5">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-sm">
                         <div className="flex flex-wrap items-center gap-4 text-gray-400">
                             <a href="tel:03323026222" className="flex items-center gap-1 hover:text-primary-400 transition-colors">
@@ -70,7 +70,7 @@ export default function Header() {
 
             {/* Main Header */}
             <header
-                className={`fixed lg:top-10 top-0 left-0 right-0 z-40 transition-all duration-300 border-b ${isScrolled ? 'bg-black/95 backdrop-blur-lg shadow-lg shadow-primary-500/10 border-primary-500/20 py-4' : 'bg-black/90 backdrop-blur-md border-primary-500/10 py-6'
+                className={`fixed lg:top-8 top-0 left-0 right-0 z-40 transition-all duration-300 border-b py-2.5 ${isScrolled ? 'bg-black/95 backdrop-blur-lg shadow-lg shadow-primary-500/10 border-primary-500/20' : 'bg-black/90 backdrop-blur-md border-primary-500/10'
                     }`}
             >
                 <div className="container mx-auto px-4">
@@ -80,7 +80,7 @@ export default function Header() {
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                className="text-2xl md:text-3xl font-serif font-bold gradient-text"
+                                className="text-xl md:text-2xl font-serif font-bold gradient-text"
                             >
                                 {t('appName')}
                             </motion.div>
