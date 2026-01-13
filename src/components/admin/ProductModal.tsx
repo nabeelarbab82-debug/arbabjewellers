@@ -371,7 +371,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         required
                                         value={formData.nameEn}
                                         onChange={(e) => setFormData({ ...formData, nameEn: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                     />
                                 </div>
                                 <div>
@@ -382,7 +382,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         type="text"
                                         value={formData.nameUr}
                                         onChange={(e) => setFormData({ ...formData, nameUr: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right text-black"
                                         dir="rtl"
                                     />
                                 </div>
@@ -394,7 +394,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         type="text"
                                         value={formData.nameAr}
                                         onChange={(e) => setFormData({ ...formData, nameAr: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right text-black"
                                         dir="rtl"
                                     />
                                 </div>
@@ -450,7 +450,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         required
                                         value={formData.price}
                                         onChange={(e) => setFormData({ ...formData, price: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                     />
                                 </div>
                                 <div>
@@ -461,7 +461,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         type="number"
                                         value={formData.comparePrice}
                                         onChange={(e) => setFormData({ ...formData, comparePrice: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                     />
                                 </div>
                                 <div>
@@ -473,7 +473,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         required
                                         value={formData.stock}
                                         onChange={(e) => setFormData({ ...formData, stock: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                     />
                                 </div>
                                 <div>
@@ -485,7 +485,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         step="0.01"
                                         value={formData.weight}
                                         onChange={(e) => setFormData({ ...formData, weight: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                     />
                                 </div>
                             </div>
@@ -560,7 +560,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         type="text"
                                         value={formData.purity}
                                         onChange={(e) => setFormData({ ...formData, purity: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                     />
                                 </div>
                             </div>

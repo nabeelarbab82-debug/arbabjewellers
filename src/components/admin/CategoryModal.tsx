@@ -293,7 +293,7 @@ export default function CategoryModal({
                                     required
                                     value={formData.nameEn}
                                     onChange={(e) => setFormData({ ...formData, nameEn: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                 />
                             </div>
                             <div>
@@ -305,7 +305,7 @@ export default function CategoryModal({
                                     required
                                     value={formData.nameUr}
                                     onChange={(e) => setFormData({ ...formData, nameUr: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right"
+                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right text-black"
                                     dir="rtl"
                                 />
                             </div>
@@ -318,7 +318,7 @@ export default function CategoryModal({
                                     required
                                     value={formData.nameAr}
                                     onChange={(e) => setFormData({ ...formData, nameAr: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right"
+                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right text-black"
                                     dir="rtl"
                                 />
                             </div>
@@ -374,7 +374,7 @@ export default function CategoryModal({
                                     value={formData.image}
                                     onChange={(e) => setFormData({ ...formData, image: e.target.value })}
                                     placeholder="https://example.com/image.jpg"
-                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                 />
                             </div>
                             <div>
@@ -386,7 +386,7 @@ export default function CategoryModal({
                                     min="0"
                                     value={formData.order}
                                     onChange={(e) => setFormData({ ...formData, order: parseInt(e.target.value) || 0 })}
-                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                 />
                                 <p className="text-xs text-gray-500 mt-1">Lower numbers appear first</p>
                             </div>
