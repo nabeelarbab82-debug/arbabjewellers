@@ -132,9 +132,14 @@ export default function Footer() {
                         <div className="space-y-3">
                             <div className="flex items-start space-x-3">
                                 <FiMapPin className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
-                                <span className="text-gray-300">
+                                <a
+                                    href="https://www.google.com/maps/place/Arbab+Jewellers/@33.5521371,73.1365602,16.78z/data=!4m6!3m5!1s0x38dfed735103f637:0xe1c43de9372819cc!8m2!3d33.552142!4d73.1392478!16s%2Fg%2F11yt2kp2k9?hl=en&entry=ttu&g_ep=EgoyMDI2MDEwNy4wIKXMDSoASAFQAw%3D%3D"
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-gray-300 hover:text-primary-400 transition-colors"
+                                >
                                     Shop No.13-A Opposite Arena Cinema, Phase 4 Bahria Heights 3, Bahria Town Rawalpindi
-                                </span>
+                                </a>
                             </div>
                             <div className="flex items-center space-x-3">
                                 <FiPhone className="w-5 h-5 text-primary-400 flex-shrink-0" />
@@ -159,14 +164,14 @@ export default function Footer() {
                         >
                             {t('copyright')}
                         </motion.p>
-                        <motion.div
+                        {/* <motion.div
                             initial={{ opacity: 0 }}
                             whileInView={{ opacity: 1 }}
                             viewport={{ once: true }}
                             className="flex items-center space-x-4"
                         >
                             <img src="/payment-methods.png" alt="Payment Methods" className="h-8 opacity-70" onError={(e) => e.currentTarget.style.display = 'none'} />
-                        </motion.div>
+                        </motion.div> */}
                     </div>
                 </div>
             </div>
