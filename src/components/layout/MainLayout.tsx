@@ -12,7 +12,7 @@ export default function MainLayout({ children }: MainLayoutProps) {
     return (
         <div className="min-h-screen flex flex-col">
             <Header />
-            <main className="flex-grow">
+            <main className="flex-grow pt-[88px] lg:pt-[120px]">
                 {children}
             </main>
             <Footer />

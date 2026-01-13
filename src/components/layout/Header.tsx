@@ -4,7 +4,8 @@ import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import { useLocale, useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
-import { FiShoppingCart, FiSearch, FiMenu, FiX, FiGlobe } from 'react-icons/fi';
+import { FiShoppingCart, FiSearch, FiMenu, FiX, FiGlobe, FiPhone, FiMail } from 'react-icons/fi';
+import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
 import { useCartStore } from '@/store/cartStore';
 import LanguageSwitcher from './LanguageSwitcher';
 
@@ -34,138 +35,201 @@ export default function Header() {
     ];
 
     return (
-        <header
-            className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 border-b ${isScrolled ? 'bg-black/95 backdrop-blur-lg shadow-lg shadow-primary-500/10 border-primary-500/20 py-4' : 'bg-black/90 backdrop-blur-md border-primary-500/10 py-6'
-                }`}
-        >
-            <div className="container mx-auto px-4">
-                <div className="flex items-center justify-between">
-                    {/* Logo */}
-                    <Link href={`/${locale}`} className="flex items-center space-x-2">
-                        <motion.div
-                            initial={{ opacity: 0, x: -20 }}
-                            animate={{ opacity: 1, x: 0 }}
-                            className="text-2xl md:text-3xl font-serif font-bold gradient-text"
-                        >
-                            {t('appName')}
-                        </motion.div>
-                    </Link>
+        <>
+            {/* Top Bar - Hidden on Mobile */}
+            <div className="hidden lg:block fixed top-0 left-0 right-0 z-50 bg-black border-b border-primary-500/10">
+                <div className="container mx-auto px-4 py-2">
+                    <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-sm">
+                        <div className="flex flex-wrap items-center gap-4 text-gray-400">
+                            <a href="tel:03323026222" className="flex items-center gap-1 hover:text-primary-400 transition-colors">
+                                <FiPhone className="w-4 h-4" />
+                                <span>0332-3026222</span>
+                            </a>
+                            <a href="mailto:nabeelarbab82@gmail.com" className="flex items-center gap-1 hover:text-primary-400 transition-colors">
+                                <FiMail className="w-4 h-4" />
+                                <span className="hidden sm:inline">nabeelarbab82@gmail.com</span>
+                            </a>
+                        </div>
+                        <div className="flex items-center gap-3">
+                            <a href="https://web.facebook.com/profile.php?id=61585786391480" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
+                                <FaFacebookF className="w-4 h-4" />
+                            </a>
+                            <a href="https://www.instagram.com/arbab_jeweller/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
+                                <FaInstagram className="w-4 h-4" />
+                            </a>
+                            <a href="https://www.youtube.com/channel/UCeLpWAiVC4olmFe0_UiJ_fQ" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
+                                <FaYoutube className="w-4 h-4" />
+                            </a>
+                            <a href="https://www.tiktok.com/@arbab_jeweller?lang=en" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
+                                <FaTiktok className="w-4 h-4" />
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-                    {/* Desktop Navigation */}
-                    <nav className="hidden lg:flex items-center space-x-8">
-                        {navLinks.map((link, index) => (
+            {/* Main Header */}
+            <header
+                className={`fixed lg:top-10 top-0 left-0 right-0 z-40 transition-all duration-300 border-b ${isScrolled ? 'bg-black/95 backdrop-blur-lg shadow-lg shadow-primary-500/10 border-primary-500/20 py-4' : 'bg-black/90 backdrop-blur-md border-primary-500/10 py-6'
+                    }`}
+            >
+                <div className="container mx-auto px-4">
+                    <div className="flex items-center justify-between">
+                        {/* Logo */}
+                        <Link href={`/${locale}`} className="flex items-center space-x-2">
                             <motion.div
-                                key={link.href}
-                                initial={{ opacity: 0, y: -10 }}
-                                animate={{ opacity: 1, y: 0 }}
-                                transition={{ delay: index * 0.1 }}
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                className="text-2xl md:text-3xl font-serif font-bold gradient-text"
                             >
-                                <Link
-                                    href={link.href}
-                                    className="text-gray-300 hover:text-primary-400 transition-colors duration-300 font-medium"
-                                >
-                                    {link.label}
-                                </Link>
+                                {t('appName')}
                             </motion.div>
-                        ))}
-                    </nav>
+                        </Link>
 
-                    {/* Actions */}
-                    <div className="flex items-center space-x-4">
-                        {/* Search */}
-                        <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => setIsSearchOpen(!isSearchOpen)}
-                            className="p-2 hover:bg-primary-500/10 rounded-full transition-colors"
-                            aria-label="Search"
-                        >
-                            <FiSearch className="w-5 h-5 text-primary-400" />
-                        </motion.button>
+                        {/* Desktop Navigation */}
+                        <nav className="hidden lg:flex items-center space-x-8">
+                            {navLinks.map((link, index) => (
+                                <motion.div
+                                    key={link.href}
+                                    initial={{ opacity: 0, y: -10 }}
+                                    animate={{ opacity: 1, y: 0 }}
+                                    transition={{ delay: index * 0.1 }}
+                                >
+                                    <Link
+                                        href={link.href}
+                                        className="text-gray-300 hover:text-primary-400 transition-colors duration-300 font-medium"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                </motion.div>
+                            ))}
+                        </nav>
 
-                        {/* Language Switcher */}
-                        <LanguageSwitcher />
-
-                        {/* Cart */}
-                        <Link href={`/${locale}/cart`}>
+                        {/* Actions */}
+                        <div className="flex items-center space-x-4">
+                            {/* Search */}
                             <motion.button
                                 whileHover={{ scale: 1.1 }}
                                 whileTap={{ scale: 0.95 }}
-                                className="relative p-2 hover:bg-primary-500/10 rounded-full transition-colors"
-                                aria-label="Shopping Cart"
+                                onClick={() => setIsSearchOpen(!isSearchOpen)}
+                                className="p-2 hover:bg-primary-500/10 rounded-full transition-colors"
+                                aria-label="Search"
                             >
-                                <FiShoppingCart className="w-5 h-5 text-primary-400" />
-                                {totalItems > 0 && (
-                                    <motion.span
-                                        initial={{ scale: 0 }}
-                                        animate={{ scale: 1 }}
-                                        className="absolute -top-1 -right-1 bg-primary-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"
-                                    >
-                                        {totalItems}
-                                    </motion.span>
+                                <FiSearch className="w-5 h-5 text-primary-400" />
+                            </motion.button>
+
+                            {/* Language Switcher */}
+                            <LanguageSwitcher />
+
+                            {/* Cart */}
+                            <Link href={`/${locale}/cart`}>
+                                <motion.button
+                                    whileHover={{ scale: 1.1 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="relative p-2 hover:bg-primary-500/10 rounded-full transition-colors"
+                                    aria-label="Shopping Cart"
+                                >
+                                    <FiShoppingCart className="w-5 h-5 text-primary-400" />
+                                    {totalItems > 0 && (
+                                        <motion.span
+                                            initial={{ scale: 0 }}
+                                            animate={{ scale: 1 }}
+                                            className="absolute -top-1 -right-1 bg-primary-500 text-black text-xs rounded-full w-5 h-5 flex items-center justify-center font-bold"
+                                        >
+                                            {totalItems}
+                                        </motion.span>
+                                    )}
+                                </motion.button>
+                            </Link>
+
+                            {/* Mobile Menu Toggle */}
+                            <motion.button
+                                whileHover={{ scale: 1.1 }}
+                                whileTap={{ scale: 0.95 }}
+                                onClick={() => setIsMenuOpen(!isMenuOpen)}
+                                className="lg:hidden p-2 hover:bg-primary-500/10 rounded-full transition-colors"
+                                aria-label="Menu"
+                            >
+                                {isMenuOpen ? (
+                                    <FiX className="w-6 h-6 text-primary-400" />
+                                ) : (
+                                    <FiMenu className="w-6 h-6 text-primary-400" />
                                 )}
                             </motion.button>
-                        </Link>
-
-                        {/* Mobile Menu Toggle */}
-                        <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.95 }}
-                            onClick={() => setIsMenuOpen(!isMenuOpen)}
-                            className="lg:hidden p-2 hover:bg-primary-500/10 rounded-full transition-colors"
-                            aria-label="Menu"
-                        >
-                            {isMenuOpen ? (
-                                <FiX className="w-6 h-6 text-primary-400" />
-                            ) : (
-                                <FiMenu className="w-6 h-6 text-primary-400" />
-                            )}
-                        </motion.button>
+                        </div>
                     </div>
+
+                    {/* Search Bar */}
+                    <AnimatePresence>
+                        {isSearchOpen && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="mt-4 overflow-hidden"
+                            >
+                                <input
+                                    type="search"
+                                    placeholder={t('searchPlaceholder')}
+                                    className="w-full px-4 py-3 rounded-lg bg-secondary-900 border-2 border-primary-500/30 text-gray-200 placeholder-gray-500 focus:border-primary-500 focus:outline-none transition-colors"
+                                    autoFocus
+                                />
+                            </motion.div>
+                        )}
+                    </AnimatePresence>
+
+                    {/* Mobile Menu */}
+                    <AnimatePresence>
+                        {isMenuOpen && (
+                            <motion.nav
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                exit={{ opacity: 0, height: 0 }}
+                                className="lg:hidden mt-3 pb-3 border-t border-primary-500/20 pt-3"
+                            >
+                                {navLinks.map((link) => (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        onClick={() => setIsMenuOpen(false)}
+                                        className="block py-2.5 text-base text-gray-300 hover:text-primary-400 hover:bg-primary-500/10 px-3 rounded-lg transition-colors"
+                                    >
+                                        {link.label}
+                                    </Link>
+                                ))}
+
+                                {/* Contact & Social Info - Mobile Only */}
+                                <div className="mt-5 pt-5 border-t border-primary-500/20 px-3 pb-5">
+                                    <div className="space-y-3 mb-4">
+                                        <a href="tel:03323026222" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
+                                            <FiPhone className="w-5 h-5" />
+                                            <span>0332-3026222</span>
+                                        </a>
+                                        <a href="mailto:nabeelarbab82@gmail.com" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
+                                            <FiMail className="w-5 h-5" />
+                                            <span className="break-all">nabeelarbab82@gmail.com</span>
+                                        </a>
+                                    </div>
+                                    <div className="flex items-center gap-4 justify-center pt-4 pb-3">
+                                        <a href="https://web.facebook.com/profile.php?id=61585786391480" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
+                                            <FaFacebookF className="w-4 h-4" />
+                                        </a>
+                                        <a href="https://www.instagram.com/arbab_jeweller/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
+                                            <FaInstagram className="w-4 h-4" />
+                                        </a>
+                                        <a href="https://www.youtube.com/channel/UCeLpWAiVC4olmFe0_UiJ_fQ" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
+                                            <FaYoutube className="w-4 h-4" />
+                                        </a>
+                                        <a href="https://www.tiktok.com/@arbab_jeweller?lang=en" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
+                                            <FaTiktok className="w-4 h-4" />
+                                        </a>
+                                    </div>
+                                </div>
+                            </motion.nav>
+                        )}
+                    </AnimatePresence>
                 </div>
-
-                {/* Search Bar */}
-                <AnimatePresence>
-                    {isSearchOpen && (
-                        <motion.div
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="mt-4 overflow-hidden"
-                        >
-                            <input
-                                type="search"
-                                placeholder={t('searchPlaceholder')}
-                                className="w-full px-4 py-3 rounded-lg bg-secondary-900 border-2 border-primary-500/30 text-gray-200 placeholder-gray-500 focus:border-primary-500 focus:outline-none transition-colors"
-                                autoFocus
-                            />
-                        </motion.div>
-                    )}
-                </AnimatePresence>
-
-                {/* Mobile Menu */}
-                <AnimatePresence>
-                    {isMenuOpen && (
-                        <motion.nav
-                            initial={{ opacity: 0, height: 0 }}
-                            animate={{ opacity: 1, height: 'auto' }}
-                            exit={{ opacity: 0, height: 0 }}
-                            className="lg:hidden mt-4 pb-4 border-t border-primary-500/20 pt-4"
-                        >
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    onClick={() => setIsMenuOpen(false)}
-                                    className="block py-3 text-gray-300 hover:text-primary-400 hover:bg-primary-500/10 px-4 rounded-lg transition-colors"
-                                >
-                                    {link.label}
-                                </Link>
-                            ))}
-                        </motion.nav>
-                    )}
-                </AnimatePresence>
-            </div>
-        </header>
+            </header>
+        </>
     );
 }

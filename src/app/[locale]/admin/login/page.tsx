@@ -82,7 +82,7 @@ export default function AdminLoginPage() {
                                     required
                                     value={formData.email}
                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                                    className="w-full pl-12 pr-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none transition-colors"
+                                    className="w-full pl-12 pr-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none transition-colors text-black"
                                     placeholder="admin@arbabjewellers.com"
                                 />
                             </div>
@@ -100,7 +100,7 @@ export default function AdminLoginPage() {
                                     required
                                     value={formData.password}
                                     onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                                    className="w-full pl-12 pr-12 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none transition-colors"
+                                    className="w-full pl-12 pr-12 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none transition-colors text-black"
                                     placeholder="Enter your password"
                                 />
                                 <button
@@ -124,15 +124,6 @@ export default function AdminLoginPage() {
                             {loading ? 'Logging in...' : t('login')}
                         </motion.button>
                     </form>
-
-                    {/* Demo Credentials */}
-                    <div className="mt-6 p-4 bg-gray-50 rounded-lg">
-                        <p className="text-xs text-gray-600 text-center">
-                            <strong>Demo Credentials:</strong><br />
-                            Email: admin@arbabjewellers.com<br />
-                            Password: admin123456
-                        </p>
-                    </div>
                 </motion.div>
 
                 {/* Back to Home */}

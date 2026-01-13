@@ -3,7 +3,8 @@
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
 import { motion } from 'framer-motion';
-import { FiFacebook, FiInstagram, FiTwitter, FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
+import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
+import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
 
 export default function Footer() {
     const t = useTranslations('footer');
@@ -27,9 +28,10 @@ export default function Footer() {
     ];
 
     const socialLinks = [
-        { icon: FiFacebook, href: 'https://facebook.com', label: 'Facebook' },
-        { icon: FiInstagram, href: 'https://instagram.com', label: 'Instagram' },
-        { icon: FiTwitter, href: 'https://twitter.com', label: 'Twitter' },
+        { icon: FaFacebookF, href: 'https://web.facebook.com/profile.php?id=61585786391480', label: 'Facebook' },
+        { icon: FaInstagram, href: 'https://www.instagram.com/arbab_jeweller/', label: 'Instagram' },
+        { icon: FaYoutube, href: 'https://www.youtube.com/channel/UCeLpWAiVC4olmFe0_UiJ_fQ', label: 'YouTube' },
+        { icon: FaTiktok, href: 'https://www.tiktok.com/@arbab_jeweller?lang=en', label: 'TikTok' },
     ];
 
     return (
@@ -124,16 +126,16 @@ export default function Footer() {
                             <div className="flex items-start space-x-3">
                                 <FiMapPin className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
                                 <span className="text-gray-300">
-                                    123 Jewelry Street, Karachi, Pakistan
+                                    Shop No.13-A Opposite Arena Cinema, Phase 4 Bahria Heights 3, Bahria Town Rawalpindi
                                 </span>
                             </div>
                             <div className="flex items-center space-x-3">
                                 <FiPhone className="w-5 h-5 text-primary-400 flex-shrink-0" />
-                                <span className="text-gray-300">+92 300 1234567</span>
+                                <a href="tel:03323026222" className="text-gray-300 hover:text-primary-400 transition-colors">0332-3026222</a>
                             </div>
                             <div className="flex items-center space-x-3">
                                 <FiMail className="w-5 h-5 text-primary-400 flex-shrink-0" />
-                                <span className="text-gray-300">info@arbabjewellers.com</span>
+                                <a href="mailto:nabeelarbab82@gmail.com" className="text-gray-300 hover:text-primary-400 transition-colors">nabeelarbab82@gmail.com</a>
                             </div>
                         </div>
                     </motion.div>

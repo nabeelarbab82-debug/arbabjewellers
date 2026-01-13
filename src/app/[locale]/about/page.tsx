@@ -3,7 +3,7 @@
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
 import MainLayout from '@/components/layout/MainLayout';
-import { FiAward, FiHeart, FiShield, FiTrendingUp, FiUsers, FiStar } from 'react-icons/fi';
+import { FiAward, FiHeart, FiShield, FiTrendingUp, FiUsers, FiStar, FiMapPin, FiPhone, FiMail } from 'react-icons/fi';
 
 export default function AboutPage() {
     const t = useTranslations('about');
@@ -255,6 +255,74 @@ export default function AboutPage() {
                 </div>
             </section>
 
+            {/* Contact Information Section */}
+            <section className="py-20 bg-black border-t border-primary-900/20">
+                <div className="container mx-auto px-4">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        whileInView={{ opacity: 1, y: 0 }}
+                        viewport={{ once: true }}
+                        className="text-center max-w-3xl mx-auto mb-12">
+                        <h2 className="text-4xl md:text-5xl font-serif font-bold gradient-text mb-4">
+                            Visit Our Showroom
+                        </h2>
+                        <p className="text-lg text-gray-400">
+                            Come visit us and experience our exquisite collection in person
+                        </p>
+                    </motion.div>
+
+                    <div className="max-w-4xl mx-auto">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                className="bg-secondary-900 border border-primary-500/20 p-8 rounded-2xl text-center">
+                                <div className="w-16 h-16 bg-primary-500/10 rounded-full flex items-center justify-center mb-4 mx-auto border border-primary-500/30">
+                                    <FiMapPin className="w-8 h-8 text-primary-400" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-primary-400 mb-3">Address</h3>
+                                <p className="text-gray-300">
+                                    Shop No.13-A Opposite Arena Cinema<br/>
+                                    Phase 4 Bahria Heights 3<br/>
+                                    Bahria Town Rawalpindi
+                                </p>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.1 }}
+                                className="bg-secondary-900 border border-primary-500/20 p-8 rounded-2xl text-center">
+                                <div className="w-16 h-16 bg-primary-500/10 rounded-full flex items-center justify-center mb-4 mx-auto border border-primary-500/30">
+                                    <FiPhone className="w-8 h-8 text-primary-400" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-primary-400 mb-3">Phone</h3>
+                                <a href="tel:03323026222" className="text-gray-300 hover:text-primary-400 transition-colors text-lg">
+                                    0332-3026222
+                                </a>
+                            </motion.div>
+
+                            <motion.div
+                                initial={{ opacity: 0, y: 30 }}
+                                whileInView={{ opacity: 1, y: 0 }}
+                                viewport={{ once: true }}
+                                transition={{ delay: 0.2 }}
+                                className="bg-secondary-900 border border-primary-500/20 p-8 rounded-2xl text-center">
+                                <div className="w-16 h-16 bg-primary-500/10 rounded-full flex items-center justify-center mb-4 mx-auto border border-primary-500/30">
+                                    <FiMail className="w-8 h-8 text-primary-400" />
+                                </div>
+                                <h3 className="text-xl font-semibold text-primary-400 mb-3">Email</h3>
+                                <a href="mailto:nabeelarbab82@gmail.com" className="text-gray-300 hover:text-primary-400 transition-colors break-all">
+                                    nabeelarbab82@gmail.com
+                                </a>
+                            </motion.div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             {/* CTA Section */}
             <section className="py-20 bg-gradient-black-gold">
                 <div className="container mx-auto px-4">
@@ -265,10 +333,10 @@ export default function AboutPage() {
                         className="text-center max-w-3xl mx-auto"
                     >
                         <h2 className="text-4xl md:text-5xl font-serif font-bold text-white mb-6">
-                            Visit Our Showroom
+                            Explore Our Collection
                         </h2>
                         <p className="text-xl text-gray-200 mb-8">
-                            Experience our collection in person and let our experts help you find the perfect piece
+                            Browse our exquisite jewelry pieces and find the perfect one for you
                         </p>
                         <div className="flex flex-col sm:flex-row gap-4 justify-center">
                             <motion.a
