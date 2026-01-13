@@ -124,17 +124,20 @@ export default function ContactPage() {
                                 {
                                     icon: FiMapPin,
                                     title: t('address'),
-                                    content: '123 Jewelry Street, Karachi, Pakistan',
+                                    content: 'Shop No.13-A Opposite Arena Cinema, Phase 4 Bahria Heights 3, Bahria Town Rawalpindi',
+                                    link: 'https://www.google.com/maps?q=33.5484744,73.1306932&z=17&hl=en',
                                 },
                                 {
                                     icon: FiPhone,
                                     title: t('phone'),
-                                    content: '+92 300 1234567',
+                                    content: '0332-3026222',
+                                    link: 'tel:03323026222',
                                 },
                                 {
                                     icon: FiMail,
                                     title: 'Email',
-                                    content: 'info@arbabjewellers.com',
+                                    content: 'nabeelarbab82@gmail.com',
+                                    link: 'mailto:nabeelarbab82@gmail.com',
                                 },
                                 {
                                     icon: FiClock,
@@ -156,7 +159,18 @@ export default function ContactPage() {
                                         </div>
                                         <div>
                                             <h3 className="font-semibold text-lg mb-2">{item.title}</h3>
-                                            <p className="text-gray-600 whitespace-pre-line">{item.content}</p>
+                                            {item.link ? (
+                                                <a
+                                                    href={item.link}
+                                                    target={item.icon === FiMapPin ? '_blank' : undefined}
+                                                    rel={item.icon === FiMapPin ? 'noopener noreferrer' : undefined}
+                                                    className="text-gray-600 hover:text-primary-500 transition-colors whitespace-pre-line"
+                                                >
+                                                    {item.content}
+                                                </a>
+                                            ) : (
+                                                <p className="text-gray-600 whitespace-pre-line">{item.content}</p>
+                                            )}
                                         </div>
                                     </div>
                                 </motion.div>
@@ -170,7 +184,7 @@ export default function ContactPage() {
                                 className="bg-gray-200 rounded-2xl overflow-hidden h-64"
                             >
                                 <iframe
-                                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3620.1827885652145!2d67.0099164!3d24.8607343!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zMjTCsDUxJzM4LjYiTiA2N8KwMDAnMzUuNyJF!5e0!3m2!1sen!2s!4v1234567890"
+                                    src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3323.7573299193707!2d73.12850457620165!3d33.54847447334461!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMzPCsDMyJzU0LjUiTiA3M8KwMDcnNTAuNSJF!5e0!3m2!1sen!2s!4v1705161234567!5m2!1sen!2s"
                                     width="100%"
                                     height="100%"
                                     style={{ border: 0 }}

@@ -133,7 +133,7 @@ export default function Footer() {
                             <div className="flex items-start space-x-3">
                                 <FiMapPin className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
                                 <a
-                                    href="https://www.google.com/maps/place/Arbab+Jewellers/@33.5521371,73.1365602,16.78z/data=!4m6!3m5!1s0x38dfed735103f637:0xe1c43de9372819cc!8m2!3d33.552142!4d73.1392478!16s%2Fg%2F11yt2kp2k9?hl=en&entry=ttu&g_ep=EgoyMDI2MDEwNy4wIKXMDSoASAFQAw%3D%3D"
+                                    href="https://www.google.com/maps?q=33.5484744,73.1306932&z=17&hl=en"
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     className="text-gray-300 hover:text-primary-400 transition-colors"
