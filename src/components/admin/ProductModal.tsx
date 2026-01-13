@@ -410,7 +410,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         rows={4}
                                         value={formData.descriptionEn}
                                         onChange={(e) => setFormData({ ...formData, descriptionEn: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                     />
                                 </div>
                                 <div>
@@ -421,7 +421,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         rows={4}
                                         value={formData.descriptionUr}
                                         onChange={(e) => setFormData({ ...formData, descriptionUr: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right text-black"
                                         dir="rtl"
                                     />
                                 </div>
@@ -433,7 +433,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         rows={4}
                                         value={formData.descriptionAr}
                                         onChange={(e) => setFormData({ ...formData, descriptionAr: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right text-black"
                                         dir="rtl"
                                     />
                                 </div>
@@ -500,7 +500,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         required
                                         value={formData.mainCategory}
                                         onChange={(e) => handleMainCategoryChange(e.target.value)}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                     >
                                         <option value="">Select Main Category</option>
                                         {mainCategories.map((cat) => (
@@ -518,7 +518,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         required
                                         value={formData.subCategory}
                                         onChange={(e) => handleSubCategoryChange(e.target.value)}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                         disabled={!formData.mainCategory}
                                     >
                                         <option value="">Select Sub Category</option>
@@ -537,7 +537,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         required
                                         value={formData.baseCategory}
                                         onChange={(e) => setFormData({ ...formData, baseCategory: e.target.value })}
-                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                         disabled={!formData.subCategory}
                                     >
                                         <option value="">Select Base Category</option>

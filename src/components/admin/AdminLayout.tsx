@@ -14,7 +14,7 @@ export default function AdminLayout({ children }: AdminLayoutProps) {
         <AdminProtectedLayout>
             <div className="min-h-screen bg-gray-50 flex">
                 <AdminSidebar />
-                <div className="flex-1 flex flex-col">
+                <div className="flex-1 flex flex-col ml-[280px]">
                     <AdminHeader />
                     <main className="flex-1 p-8 overflow-y-auto">
                         {children}

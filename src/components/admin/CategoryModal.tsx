@@ -334,7 +334,7 @@ export default function CategoryModal({
                                     rows={4}
                                     value={formData.descriptionEn}
                                     onChange={(e) => setFormData({ ...formData, descriptionEn: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
+                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-black"
                                 />
                             </div>
                             <div>
@@ -345,7 +345,7 @@ export default function CategoryModal({
                                     rows={4}
                                     value={formData.descriptionUr}
                                     onChange={(e) => setFormData({ ...formData, descriptionUr: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right"
+                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right text-black"
                                     dir="rtl"
                                 />
                             </div>
@@ -357,7 +357,7 @@ export default function CategoryModal({
                                     rows={4}
                                     value={formData.descriptionAr}
                                     onChange={(e) => setFormData({ ...formData, descriptionAr: e.target.value })}
-                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right"
+                                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none text-right text-black"
                                     dir="rtl"
                                 />
                             </div>

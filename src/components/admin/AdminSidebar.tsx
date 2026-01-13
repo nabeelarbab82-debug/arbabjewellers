@@ -59,10 +59,10 @@ export default function AdminSidebar() {
                     width: isOpen ? 280 : 0,
                     opacity: isOpen ? 1 : 0,
                 }}
-                className={`bg-gradient-to-br from-secondary-900 to-secondary-950 text-white h-screen sticky top-0 overflow-hidden ${isOpen ? 'block' : 'hidden lg:block'
+                className={`bg-gradient-to-br from-secondary-900 to-secondary-950 text-white h-screen fixed top-0 left-0 overflow-y-auto ${isOpen ? 'block' : 'hidden lg:block'
                     }`}
             >
-                <div className="p-6">
+                <div className="p-6 pb-8">{/* Logo */}
                     {/* Logo */}
                     <Link href={`/${locale}/admin/dashboard`}>
                         <motion.div
