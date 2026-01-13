@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl';
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import MainLayout from '@/components/layout/MainLayout';
 import { FiAward, FiHeart, FiShield, FiTrendingUp, FiUsers, FiStar, FiMapPin, FiPhone, FiMail } from 'react-icons/fi';
 
@@ -101,10 +102,12 @@ export default function AboutPage() {
                             transition={{ duration: 0.8 }}
                         >
                             <div className="relative">
-                                <img
-                                    src="https://images.unsplash.com/photo-1605100804763-247f67b3557e?w=800"
-                                    alt="Our Story"
-                                    className="rounded-2xl shadow-2xl shadow-primary-500/20 border border-primary-500/20"
+                                <Image
+                                    src="/logo/about.jpeg"
+                                    alt="Arbab Jewellers Outlet"
+                                    width={800}
+                                    height={600}
+                                    className="rounded-2xl shadow-2xl shadow-primary-500/20 border border-primary-500/20 object-cover"
                                 />
                                 <div className="absolute -bottom-6 -right-6 w-48 h-48 bg-gradient-to-br from-primary-500 to-primary-700 rounded-2xl -z-10 blur-xl opacity-50" />
                             </div>
@@ -283,8 +286,8 @@ export default function AboutPage() {
                                 </div>
                                 <h3 className="text-xl font-semibold text-primary-400 mb-3">Address</h3>
                                 <p className="text-gray-300">
-                                    Shop No.13-A Opposite Arena Cinema<br/>
-                                    Phase 4 Bahria Heights 3<br/>
+                                    Shop No.13-A Opposite Arena Cinema<br />
+                                    Phase 4 Bahria Heights 3<br />
                                     Bahria Town Rawalpindi
                                 </p>
                             </motion.div>

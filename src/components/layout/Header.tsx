@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Link from 'next/link';
+import Image from 'next/image';
 import { useLocale, useTranslations } from 'next-intl';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiShoppingCart, FiSearch, FiMenu, FiX, FiGlobe, FiPhone, FiMail } from 'react-icons/fi';
@@ -80,9 +81,16 @@ export default function Header() {
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                className="text-xl md:text-2xl font-serif font-bold gradient-text"
+                                className="relative"
                             >
-                                {t('appName')}
+                                <Image
+                                    src="/logo/logo.jpeg"
+                                    alt={t('appName')}
+                                    width={150}
+                                    height={100}
+                                    className="object-contain"
+                                    priority
+                                />
                             </motion.div>
                         </Link>
 

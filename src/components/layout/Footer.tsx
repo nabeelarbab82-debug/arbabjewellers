@@ -2,6 +2,7 @@
 
 import { useLocale, useTranslations } from 'next-intl';
 import Link from 'next/link';
+import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
@@ -45,9 +46,15 @@ export default function Footer() {
                         viewport={{ once: true }}
                         className="space-y-4"
                     >
-                        <h3 className="text-2xl font-serif font-bold text-primary-400">
-                            {tCommon('appName')}
-                        </h3>
+                        <div className="mb-4">
+                            <Image
+                                src="/logo/logo.jpeg"
+                                alt={tCommon('appName')}
+                                width={180}
+                                height={120}
+                                className="object-contain"
+                            />
+                        </div>
                         <p className="text-gray-300 leading-relaxed">
                             {t('description')}
                         </p>
