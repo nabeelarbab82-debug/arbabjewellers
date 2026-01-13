@@ -60,31 +60,52 @@ export default function CategoryPage() {
             const categoriesResponse = await axios.get('/categories');
             const allCategories = categoriesResponse.data.data;
 
-            const findCategory = (cats: Category[]): Category | null => {
+            let foundCategory: Category | null = null;
+            let mainCategoryId: string | null = null;
+            let subCategoryId: string | null = null;
+
+            const findCategory = (cats: Category[], mainId?: string, subId?: string): Category | null => {
                 for (const cat of cats) {
-                    if (cat.slug === slug) return cat;
-                    if (cat.children) {
-                        const found = findCategory(cat.children);
-                        if (found) return found;
+                    if (cat.slug === slug) {
+                        if (cat.level === 1) {
+                            mainCategoryId = cat._id;
+                        } else if (cat.level === 2) {
+                            mainCategoryId = mainId || null;
+                            subCategoryId = cat._id;
+                        } else if (cat.level === 3) {
+                            mainCategoryId = mainId || null;
+                            subCategoryId = subId || null;
+                        }
+                        return cat;
+                    }
+                    if (cat.children && cat.children.length > 0) {
+                        const newMainId = cat.level === 1 ? cat._id : mainId;
+                        const newSubId = cat.level === 2 ? cat._id : subId;
+                        const found = findCategory(cat.children, newMainId, newSubId);
+                        if (found) {
+                            return found;
+                        }
                     }
                 }
                 return null;
             };
 
-            const foundCategory = findCategory(allCategories);
+            foundCategory = findCategory(allCategories);
             setCategory(foundCategory);
 
             if (foundCategory) {
-                // Fetch products for this category
-                // Try different API endpoints based on category level
+                // Fetch products for this category with proper parent categories
                 let productsResponse;
                 try {
                     if (foundCategory.level === 1) {
+                        // Main category - just send mainCategory
                         productsResponse = await axios.get(`/products?mainCategory=${foundCategory._id}`);
-                    } else if (foundCategory.level === 2) {
-                        productsResponse = await axios.get(`/products?subCategory=${foundCategory._id}`);
-                    } else if (foundCategory.level === 3) {
-                        productsResponse = await axios.get(`/products?baseCategory=${foundCategory._id}`);
+                    } else if (foundCategory.level === 2 && mainCategoryId) {
+                        // Sub category - send mainCategory and subCategory
+                        productsResponse = await axios.get(`/products?mainCategory=${mainCategoryId}&subCategory=${foundCategory._id}`);
+                    } else if (foundCategory.level === 3 && mainCategoryId && subCategoryId) {
+                        // Base category - send all three
+                        productsResponse = await axios.get(`/products?mainCategory=${mainCategoryId}&subCategory=${subCategoryId}&baseCategory=${foundCategory._id}`);
                     }
                     // Handle the nested response structure
                     const productData = productsResponse?.data?.data?.products || productsResponse?.data?.products || productsResponse?.data?.data || [];

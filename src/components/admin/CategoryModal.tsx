@@ -42,7 +42,7 @@ export default function CategoryModal({
     const [subCategories, setSubCategories] = useState<Category[]>([]);
     const [selectedMainCategory, setSelectedMainCategory] = useState('');
     const [selectedSubCategory, setSelectedSubCategory] = useState('');
-    
+
     const [formData, setFormData] = useState<Category>({
         nameEn: '',
         nameUr: '',
@@ -122,7 +122,7 @@ export default function CategoryModal({
     const handleMainCategoryChange = (mainCatId: string) => {
         setSelectedMainCategory(mainCatId);
         setSelectedSubCategory('');
-        
+
         if (mainCatId) {
             const mainCat = mainCategories.find(cat => cat._id === mainCatId);
             setSubCategories(mainCat?.children || []);
@@ -143,7 +143,7 @@ export default function CategoryModal({
 
     const handleSubCategoryChange = (subCatId: string) => {
         setSelectedSubCategory(subCatId);
-        
+
         if (subCatId) {
             setFormData({
                 ...formData,
@@ -232,7 +232,7 @@ export default function CategoryModal({
                         {!parentCategory && !editingCategory && (
                             <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 space-y-4">
                                 <h3 className="font-semibold text-gray-800 mb-2">Category Hierarchy</h3>
-                                
+
                                 {/* Main Category Selection */}
                                 <div>
                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
