@@ -334,7 +334,7 @@ export default function Hero() {
                                 {[
                                     { value: '500+', label: 'Products' },
                                     { value: '10K+', label: 'Happy Customers' },
-                                    { value: '25+', label: 'Years Experience' },
+                                    { value: '65+', label: 'Years Experience' },
                                 ].map((stat, index) => (
                                     <motion.div
                                         key={stat.label}

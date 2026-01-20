@@ -42,6 +42,10 @@ export default function Header() {
                 <div className="container mx-auto px-4 py-1.5">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-sm">
                         <div className="flex flex-wrap items-center gap-4 text-gray-400">
+                            <a href="tel:03335861171" className="flex items-center gap-1 hover:text-primary-400 transition-colors">
+                                <FiPhone className="w-4 h-4" />
+                                <span>0333-5861171</span>
+                            </a>
                             <a href="tel:03323026222" className="flex items-center gap-1 hover:text-primary-400 transition-colors">
                                 <FiPhone className="w-4 h-4" />
                                 <span>0332-3026222</span>
@@ -209,9 +213,17 @@ export default function Header() {
                                 {/* Contact & Social Info - Mobile Only */}
                                 <div className="mt-5 pt-5 border-t border-primary-500/20 px-3 pb-5">
                                     <div className="space-y-3 mb-4">
+                                        <a href="tel:03335861171" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
+                                            <FiPhone className="w-5 h-5" />
+                                            <span>0333-5861171</span>
+                                        </a>
                                         <a href="tel:03323026222" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
                                             <FiPhone className="w-5 h-5" />
-                                            <span>0332-3026222</span>
+                                            <span>0332-3026222 (WhatsApp)</span>
+                                        </a>
+                                        <a href="tel:0516102658" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
+                                            <FiPhone className="w-5 h-5" />
+                                            <span>051-6102658 (PTCL)</span>
                                         </a>
                                         <a href="mailto:nabeelarbab82@gmail.com" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
                                             <FiMail className="w-5 h-5" />

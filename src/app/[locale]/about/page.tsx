@@ -285,10 +285,11 @@ export default function AboutPage() {
                                     <FiMapPin className="w-8 h-8 text-primary-400" />
                                 </div>
                                 <h3 className="text-xl font-semibold text-primary-400 mb-3">Address</h3>
-                                <p className="text-gray-300">
-                                    Shop No.13-A Opposite Arena Cinema<br />
-                                    Phase 4 Bahria Heights 3<br />
-                                    Bahria Town Rawalpindi
+                                <p className="text-gray-300 space-y-2">
+                                    <span className="block">Shop No.13-A Opposite Arena Cinema<br />
+                                        Phase 4 Bahria Heights 3<br />
+                                        Bahria Town Rawalpindi</span>
+                                    <span className="block mt-4">Shop#75, Lalkurti<br />Rawalpindi Cantt</span>
                                 </p>
                             </motion.div>
 
@@ -302,9 +303,17 @@ export default function AboutPage() {
                                     <FiPhone className="w-8 h-8 text-primary-400" />
                                 </div>
                                 <h3 className="text-xl font-semibold text-primary-400 mb-3">Phone</h3>
-                                <a href="tel:03323026222" className="text-gray-300 hover:text-primary-400 transition-colors text-lg">
-                                    0332-3026222
-                                </a>
+                                <div className="text-gray-300 space-y-2">
+                                    <a href="tel:03335861171" className="hover:text-primary-400 transition-colors text-lg block">
+                                        0333-5861171
+                                    </a>
+                                    <a href="tel:03323026222" className="hover:text-primary-400 transition-colors text-lg block">
+                                        0332-3026222 (WhatsApp)
+                                    </a>
+                                    <a href="tel:0516102658" className="hover:text-primary-400 transition-colors text-lg block">
+                                        051-6102658 (PTCL)
+                                    </a>
+                                </div>
                             </motion.div>
 
                             <motion.div

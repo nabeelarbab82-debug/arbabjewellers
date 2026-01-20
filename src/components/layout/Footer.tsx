@@ -132,18 +132,25 @@ export default function Footer() {
                         <div className="space-y-3">
                             <div className="flex items-start space-x-3">
                                 <FiMapPin className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
-                                <a
-                                    href="https://www.google.com/maps?q=33.5484744,73.1306932&z=17&hl=en"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-gray-300 hover:text-primary-400 transition-colors"
-                                >
-                                    Shop No.13-A Opposite Arena Cinema, Phase 4 Bahria Heights 3, Bahria Town Rawalpindi
-                                </a>
+                                <div className="text-gray-300">
+                                    <a
+                                        href="https://www.google.com/maps?q=33.5484744,73.1306932&z=17&hl=en"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        className="hover:text-primary-400 transition-colors block mb-2"
+                                    >
+                                        Shop No.13-A Opposite Arena Cinema, Phase 4 Bahria Heights 3, Bahria Town Rawalpindi
+                                    </a>
+                                    <span className="block">Shop#75, Lalkurti, Rawalpindi Cantt</span>
+                                </div>
                             </div>
-                            <div className="flex items-center space-x-3">
-                                <FiPhone className="w-5 h-5 text-primary-400 flex-shrink-0" />
-                                <a href="tel:03323026222" className="text-gray-300 hover:text-primary-400 transition-colors">0332-3026222</a>
+                            <div className="flex items-start space-x-3">
+                                <FiPhone className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
+                                <div className="space-y-1">
+                                    <a href="tel:03335861171" className="text-gray-300 hover:text-primary-400 transition-colors block">Call: 0333-5861171</a>
+                                    <a href="tel:03323026222" className="text-gray-300 hover:text-primary-400 transition-colors block">WhatsApp: 0332-3026222</a>
+                                    <a href="tel:0516102658" className="text-gray-300 hover:text-primary-400 transition-colors block">PTCL: 051-6102658</a>
+                                </div>
                             </div>
                             <div className="flex items-center space-x-3">
                                 <FiMail className="w-5 h-5 text-primary-400 flex-shrink-0" />

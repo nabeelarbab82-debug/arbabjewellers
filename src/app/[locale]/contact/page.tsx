@@ -124,14 +124,14 @@ export default function ContactPage() {
                                 {
                                     icon: FiMapPin,
                                     title: t('address'),
-                                    content: 'Shop No.13-A Opposite Arena Cinema, Phase 4 Bahria Heights 3, Bahria Town Rawalpindi',
+                                    content: 'Shop No.13-A Opposite Arena Cinema, Phase 4 Bahria Heights 3, Bahria Town Rawalpindi\n\nShop#75, Lalkurti, Rawalpindi Cantt',
                                     link: 'https://www.google.com/maps?q=33.5484744,73.1306932&z=17&hl=en',
                                 },
                                 {
                                     icon: FiPhone,
                                     title: t('phone'),
-                                    content: '0332-3026222',
-                                    link: 'tel:03323026222',
+                                    content: 'Call: 0333-5861171\nWhatsApp: 0332-3026222\nPTCL: 051-6102658',
+                                    link: 'tel:03335861171',
                                 },
                                 {
                                     icon: FiMail,

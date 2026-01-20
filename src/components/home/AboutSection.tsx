@@ -97,7 +97,7 @@ export default function AboutSection() {
                             className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 bg-white p-6 rounded-2xl shadow-2xl"
                         >
                             <div className="text-center">
-                                <div className="text-5xl font-bold gradient-text">25+</div>
+                                <div className="text-5xl font-bold gradient-text">65+</div>
                                 <div className="text-sm text-gray-600 mt-2 font-semibold">Years of Excellence</div>
                             </div>
                         </motion.div>
