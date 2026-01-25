@@ -154,7 +154,7 @@ export default function Footer() {
                             </div>
                             <div className="flex items-center space-x-3">
                                 <FiMail className="w-5 h-5 text-primary-400 flex-shrink-0" />
-                                <a href="mailto:nabeelarbab82@gmail.com" className="text-gray-300 hover:text-primary-400 transition-colors">nabeelarbab82@gmail.com</a>
+                                <a href="mailto:arbabjewellersofficial@gmail.com" className="text-gray-300 hover:text-primary-400 transition-colors">arbabjewellersofficial@gmail.com</a>
                             </div>
                         </div>
                     </motion.div>

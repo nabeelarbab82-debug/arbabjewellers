@@ -265,14 +265,6 @@ function ProductCard({ product, viewMode, index }: { product: Product; viewMode:
                         </div>
                         <div className="p-6 flex flex-col justify-center">
                             <h3 className="text-xl font-semibold text-gray-800 mb-2">{product.nameEn || product.name}</h3>
-                            <div className="flex items-center gap-3">
-                                <span className="text-2xl font-bold text-primary-600">
-                                    ${product.salePrice || product.price}
-                                </span>
-                                {product.salePrice && product.salePrice > 0 && (
-                                    <span className="text-lg text-gray-400 line-through">${product.price}</span>
-                                )}
-                            </div>
                         </div>
                     </div>
                 </Link>
@@ -298,24 +290,11 @@ function ProductCard({ product, viewMode, index }: { product: Product; viewMode:
                             animate={{ scale: isHovered ? 1.1 : 1 }}
                             transition={{ duration: 0.6 }}
                         />
-                        {discount > 0 && (
-                            <div className="absolute top-4 right-4 bg-red-500 text-white px-3 py-1 rounded-full text-sm font-bold">
-                                -{discount}%
-                            </div>
-                        )}
                     </div>
                     <div className="p-6 flex-1 flex flex-col">
                         <h3 className="text-lg font-semibold text-gray-800 mb-2 line-clamp-2 flex-1">
                             {product.nameEn || product.name}
                         </h3>
-                        <div className="flex items-center gap-2">
-                            <span className="text-xl font-bold text-primary-600">
-                                ${product.salePrice && product.salePrice > 0 ? product.salePrice : product.price}
-                            </span>
-                            {product.salePrice && product.salePrice > 0 && (
-                                <span className="text-sm text-gray-400 line-through">${product.price}</span>
-                            )}
-                        </div>
                     </div>
                 </div>
             </Link>

@@ -46,7 +46,7 @@ export default function ProductsPage() {
     const fetchProducts = async () => {
         try {
             setLoading(true);
-            const response = await api.get('/products');
+            const response = await api.get('/products?limit=1000');
             setProducts(response.data.data.products);
         } catch (error) {
             toast.error('Failed to fetch products');

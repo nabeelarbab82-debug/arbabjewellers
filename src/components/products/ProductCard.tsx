@@ -13,9 +13,10 @@ interface ProductCardProps {
         images: string[];
         stock: number;
     };
+    showPrice?: boolean;
 }
 
-export default function ProductCard({ product }: ProductCardProps) {
+export default function ProductCard({ product, showPrice = true }: ProductCardProps) {
     const tCommon = useTranslations('common');
     const locale = useLocale();
 
@@ -66,17 +67,20 @@ export default function ProductCard({ product }: ProductCardProps) {
                             {product.name}
                         </h3>
 
-                        <div className="flex items-center justify-between mt-auto">\n                            <span className="text-2xl font-bold gradient-text">
-                            {tCommon('currency')} {product.price.toLocaleString()}
-                        </span>
+                        {showPrice && (
+                            <div className="flex items-center justify-between mt-auto">
+                                <span className="text-2xl font-bold gradient-text">
+                                    {tCommon('currency')} {product.price.toLocaleString()}
+                                </span>
 
-                            <motion.div
-                                whileHover={{ scale: 1.1, rotate: 5 }}
-                                className="w-10 h-10 rounded-full gradient-gold flex items-center justify-center text-white shadow-lg"
-                            >
-                                ⭐
-                            </motion.div>
-                        </div>
+                                <motion.div
+                                    whileHover={{ scale: 1.1, rotate: 5 }}
+                                    className="w-10 h-10 rounded-full gradient-gold flex items-center justify-center text-white shadow-lg"
+                                >
+                                    ⭐
+                                </motion.div>
+                            </div>
+                        )}
                     </div>
                 </div>
             </Link>

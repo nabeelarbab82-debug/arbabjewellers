@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX } from 'react-icons/fi';
 import api from '@/lib/axios';
@@ -42,6 +42,11 @@ export default function CategoryModal({
     const [subCategories, setSubCategories] = useState<Category[]>([]);
     const [selectedMainCategory, setSelectedMainCategory] = useState('');
     const [selectedSubCategory, setSelectedSubCategory] = useState('');
+
+    // Refs for validation scrolling
+    const nameEnRef = useRef<HTMLInputElement>(null);
+    const nameUrRef = useRef<HTMLInputElement>(null);
+    const nameArRef = useRef<HTMLInputElement>(null);
 
     const [formData, setFormData] = useState<Category>({
         nameEn: '',
@@ -161,6 +166,43 @@ export default function CategoryModal({
 
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+
+        // Helper function to scroll to field with error
+        const scrollToField = (ref: React.RefObject<HTMLElement>) => {
+            if (ref.current) {
+                ref.current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                ref.current.focus();
+                // Add red border temporarily
+                ref.current.style.borderColor = '#ef4444';
+                setTimeout(() => {
+                    if (ref.current) {
+                        ref.current.style.borderColor = '';
+                    }
+                }, 2000);
+            }
+        };
+
+        // Validate required fields
+        if (!formData.nameEn.trim()) {
+            toast.error('Category name (English) is required');
+            scrollToField(nameEnRef);
+            return;
+        }
+
+        if (!formData.nameUr.trim()) {
+            toast.error('Category name (Urdu) is required');
+            scrollToField(nameUrRef);
+            return;
+        }
+
+        if (!formData.nameAr.trim()) {
+            toast.error('Category name (Arabic) is required');
+            scrollToField(nameArRef);
+            return;
+        }
 
         if (formData.level > 3) {
             toast.error('Maximum 3 levels of categories allowed');
@@ -289,6 +331,7 @@ export default function CategoryModal({
                                     Name (English) *
                                 </label>
                                 <input
+                                    ref={nameEnRef}
                                     type="text"
                                     required
                                     value={formData.nameEn}
@@ -301,6 +344,7 @@ export default function CategoryModal({
                                     Name (Urdu) *
                                 </label>
                                 <input
+                                    ref={nameUrRef}
                                     type="text"
                                     required
                                     value={formData.nameUr}
@@ -314,6 +358,7 @@ export default function CategoryModal({
                                     Name (Arabic) *
                                 </label>
                                 <input
+                                    ref={nameArRef}
                                     type="text"
                                     required
                                     value={formData.nameAr}

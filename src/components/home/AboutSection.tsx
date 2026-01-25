@@ -48,9 +48,9 @@ export default function AboutSection() {
                                 className="rounded-2xl overflow-hidden shadow-lg"
                             >
                                 <img
-                                    src="https://images.unsplash.com/photo-1611085583191-a3b181a88401?w=500"
+                                    src="https://res.cloudinary.com/dm87rn19g/image/upload/v1769332549/ar74kpmh0hsinxlrl2ev.jpg"
                                     alt="Jewelry 1"
-                                    className="w-full h-64 object-cover"
+                                    className="w-full h-64 object-contain bg-white"
                                 />
                             </motion.div>
 
@@ -59,9 +59,9 @@ export default function AboutSection() {
                                 className="rounded-2xl overflow-hidden shadow-lg mt-8"
                             >
                                 <img
-                                    src="https://images.unsplash.com/photo-1603561596112-0a132b757442?w=500"
+                                    src="https://res.cloudinary.com/dm87rn19g/image/upload/v1769332544/vwzlugtvdt0fds2by5i2.jpg"
                                     alt="Jewelry 2"
-                                    className="w-full h-64 object-cover"
+                                    className="w-full h-64 object-contain bg-white"
                                 />
                             </motion.div>
 
@@ -70,9 +70,9 @@ export default function AboutSection() {
                                 className="rounded-2xl overflow-hidden shadow-lg -mt-8"
                             >
                                 <img
-                                    src="https://images.unsplash.com/photo-1599643478518-a784e5dc4c8f?w=500"
+                                    src="https://res.cloudinary.com/dm87rn19g/image/upload/v1769332544/itr6rya5vltscqykxoik.jpg"
                                     alt="Jewelry 3"
-                                    className="w-full h-64 object-cover"
+                                    className="w-full h-64 object-contain bg-white"
                                 />
                             </motion.div>
 
@@ -81,9 +81,9 @@ export default function AboutSection() {
                                 className="rounded-2xl overflow-hidden shadow-lg"
                             >
                                 <img
-                                    src="https://images.unsplash.com/photo-1535632066927-ab7c9ab60908?w=500"
+                                    src="https://res.cloudinary.com/dm87rn19g/image/upload/v1769332545/dqwx8rheikdl34ylw8nw.jpg"
                                     alt="Jewelry 4"
-                                    className="w-full h-64 object-cover"
+                                    className="w-full h-64 object-contain bg-white"
                                 />
                             </motion.div>
                         </div>

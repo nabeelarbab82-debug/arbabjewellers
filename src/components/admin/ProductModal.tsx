@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FiX, FiUpload, FiTrash2 } from 'react-icons/fi';
 import api from '@/lib/axios';
@@ -33,6 +33,14 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
     const [baseCategories, setBaseCategories] = useState<Category[]>([]);
     const [uploading, setUploading] = useState(false);
     const [loading, setLoading] = useState(false);
+
+    // Refs for validation scrolling
+    const nameEnRef = useRef<HTMLInputElement>(null);
+    const priceRef = useRef<HTMLInputElement>(null);
+    const stockRef = useRef<HTMLInputElement>(null);
+    const mainCategoryRef = useRef<HTMLSelectElement>(null);
+    const imagesSectionRef = useRef<HTMLDivElement>(null);
+
     const [formData, setFormData] = useState({
         nameEn: '',
         nameUr: '',
@@ -243,9 +251,52 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
 
-        // Validate at least one image
+        // Helper function to scroll to field with error
+        const scrollToField = (ref: React.RefObject<HTMLElement>) => {
+            if (ref.current) {
+                ref.current.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'center'
+                });
+                ref.current.focus();
+                // Add red border temporarily
+                ref.current.style.borderColor = '#ef4444';
+                setTimeout(() => {
+                    if (ref.current) {
+                        ref.current.style.borderColor = '';
+                    }
+                }, 2000);
+            }
+        };
+
+        // Validate required fields
+        if (!formData.nameEn.trim()) {
+            toast.error('Product name (English) is required');
+            scrollToField(nameEnRef);
+            return;
+        }
+
+        if (!formData.price || parseFloat(formData.price) <= 0) {
+            toast.error('Valid price is required');
+            scrollToField(priceRef);
+            return;
+        }
+
+        if (!formData.stock || parseInt(formData.stock) < 0) {
+            toast.error('Valid stock quantity is required');
+            scrollToField(stockRef);
+            return;
+        }
+
+        if (!formData.mainCategory) {
+            toast.error('Main category is required');
+            scrollToField(mainCategoryRef);
+            return;
+        }
+
         if (formData.images.length === 0) {
             toast.error('Please upload at least one product image');
+            scrollToField(imagesSectionRef);
             return;
         }
 
@@ -314,9 +365,9 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                     ) : (
                         <form onSubmit={handleSubmit} className="p-6 space-y-6">
                             {/* Images */}
-                            <div>
+                            <div ref={imagesSectionRef}>
                                 <label className="block text-sm font-semibold text-gray-700 mb-2">
-                                    Product Images
+                                    Product Images *
                                 </label>
                                 <div className="grid grid-cols-4 gap-4 mb-4">
                                     {formData.images.map((img, index) => (
@@ -367,6 +418,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         Name (English) *
                                     </label>
                                     <input
+                                        ref={nameEnRef}
                                         type="text"
                                         required
                                         value={formData.nameEn}
@@ -445,8 +497,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                     <label className="block text-sm font-semibold text-gray-700 mb-2">
                                         Price (PKR) *
                                     </label>
-                                    <input
-                                        type="number"
+                                    <input ref={priceRef} type="number"
                                         required
                                         value={formData.price}
                                         onChange={(e) => setFormData({ ...formData, price: e.target.value })}
@@ -469,6 +520,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         Stock *
                                     </label>
                                     <input
+                                        ref={stockRef}
                                         type="number"
                                         required
                                         value={formData.stock}
@@ -497,6 +549,7 @@ export default function ProductModal({ isOpen, onClose, onSuccess, editingProduc
                                         Main Category *
                                     </label>
                                     <select
+                                        ref={mainCategoryRef}
                                         required
                                         value={formData.mainCategory}
                                         onChange={(e) => handleMainCategoryChange(e.target.value)}

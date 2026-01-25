@@ -326,8 +326,8 @@ export default function AboutPage() {
                                     <FiMail className="w-8 h-8 text-primary-400" />
                                 </div>
                                 <h3 className="text-xl font-semibold text-primary-400 mb-3">Email</h3>
-                                <a href="mailto:nabeelarbab82@gmail.com" className="text-gray-300 hover:text-primary-400 transition-colors break-all">
-                                    nabeelarbab82@gmail.com
+                                <a href="mailto:arbabjewellersofficial@gmail.com" className="text-gray-300 hover:text-primary-400 transition-colors break-all">
+                                    arbabjewellersofficial@gmail.com
                                 </a>
                             </motion.div>
                         </div>

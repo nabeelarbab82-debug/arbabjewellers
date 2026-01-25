@@ -136,8 +136,8 @@ export default function ContactPage() {
                                 {
                                     icon: FiMail,
                                     title: 'Email',
-                                    content: 'nabeelarbab82@gmail.com',
-                                    link: 'mailto:nabeelarbab82@gmail.com',
+                                    content: 'arbabjewellersofficial@gmail.com',
+                                    link: 'mailto:arbabjewellersofficial@gmail.com',
                                 },
                                 {
                                     icon: FiClock,

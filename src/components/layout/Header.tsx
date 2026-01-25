@@ -50,9 +50,9 @@ export default function Header() {
                                 <FiPhone className="w-4 h-4" />
                                 <span>0332-3026222</span>
                             </a>
-                            <a href="mailto:nabeelarbab82@gmail.com" className="flex items-center gap-1 hover:text-primary-400 transition-colors">
+                            <a href="mailto:arbabjewellersofficial@gmail.com" className="flex items-center gap-1 hover:text-primary-400 transition-colors">
                                 <FiMail className="w-4 h-4" />
-                                <span className="hidden sm:inline">nabeelarbab82@gmail.com</span>
+                                <span className="hidden sm:inline">arbabjewellersofficial@gmail.com</span>
                             </a>
                         </div>
                         <div className="flex items-center gap-3">
@@ -225,9 +225,9 @@ export default function Header() {
                                             <FiPhone className="w-5 h-5" />
                                             <span>051-6102658 (PTCL)</span>
                                         </a>
-                                        <a href="mailto:nabeelarbab82@gmail.com" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
+                                        <a href="mailto:arbabjewellersofficial@gmail.com" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
                                             <FiMail className="w-5 h-5" />
-                                            <span className="break-all">nabeelarbab82@gmail.com</span>
+                                            <span className="break-all">arbabjewellersofficial@gmail.com</span>
                                         </a>
                                     </div>
                                     <div className="flex items-center gap-4 justify-center pt-4 pb-3">
