@@ -20,6 +20,13 @@ export default function Testimonials() {
             text: 'Absolutely stunning jewelry! The quality exceeded my expectations. I bought a beautiful necklace for my wedding and received so many compliments.',
         },
         {
+            name: 'Ayesha Malik',
+            role: 'Customer',
+            image: 'https://i.pravatar.cc/150?img=5',
+            rating: 5,
+            text: 'The earrings I purchased are simply gorgeous! The craftsmanship is outstanding and they are so comfortable to wear. Will definitely shop here again.',
+        },
+        {
             name: 'Ali Hassan',
             role: 'Customer',
             image: 'https://i.pravatar.cc/150?img=2',
@@ -34,11 +41,32 @@ export default function Testimonials() {
             text: 'Best jewelry shop in town! Their collection is exquisite and prices are reasonable. I am a regular customer now.',
         },
         {
+            name: 'Zainab Hussain',
+            role: 'Customer',
+            image: 'https://i.pravatar.cc/150?img=9',
+            rating: 5,
+            text: 'I love the variety of designs they offer! Bought a stunning bracelet set and the quality is exceptional. Highly satisfied with my purchase.',
+        },
+        {
             name: 'Ahmed Raza',
             role: 'Customer',
             image: 'https://i.pravatar.cc/150?img=4',
             rating: 5,
             text: 'Amazing craftsmanship and beautiful designs. Purchased multiple items as gifts and everyone loved them!',
+        },
+        {
+            name: 'Maryam Siddiqui',
+            role: 'Customer',
+            image: 'https://i.pravatar.cc/150?img=10',
+            rating: 5,
+            text: 'Their bridal collection is breathtaking! I found everything I needed for my wedding. The staff helped me choose pieces that perfectly matched my outfit.',
+        },
+        {
+            name: 'Hira Khan',
+            role: 'Customer',
+            image: 'https://i.pravatar.cc/150?img=16',
+            rating: 5,
+            text: 'Exceptional quality and beautiful designs! The gold bangles I bought are absolutely perfect. Great customer service and fair pricing.',
         },
     ];
 

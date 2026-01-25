@@ -146,9 +146,7 @@ export default function ProductDetailPage() {
 
                             <div className="relative">
                                 <div className="flex items-start space-x-3">
-                                    <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary-500/20 flex items-center justify-center mt-1 border border-primary-500/30">
-                                        <span className="text-primary-400 text-lg">ℹ️</span>
-                                    </div>
+
                                     <p className="text-sm text-gray-300 leading-relaxed">
                                         <span className="font-semibold text-primary-400">Note:</span> Product images are for illustration purposes only. Actual product may vary slightly.
                                     </p>

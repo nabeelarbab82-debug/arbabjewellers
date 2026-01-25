@@ -46,6 +46,15 @@ export default function CategoryPage() {
     const t = useTranslations('category');
 
     const [category, setCategory] = useState<Category | null>(null);
+    const [allCategories, setAllCategories] = useState<Category[]>([]);
+    const [mainCategories, setMainCategories] = useState<Category[]>([]);
+    const [subCategories, setSubCategories] = useState<Category[]>([]);
+    const [baseCategories, setBaseCategories] = useState<Category[]>([]);
+
+    const [selectedMainId, setSelectedMainId] = useState<string>('');
+    const [selectedSubId, setSelectedSubId] = useState<string>('');
+    const [selectedBaseId, setSelectedBaseId] = useState<string>('');
+
     const [products, setProducts] = useState<Product[]>([]);
     const [loading, setLoading] = useState(true);
     const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
@@ -56,69 +65,97 @@ export default function CategoryPage() {
 
     const fetchCategoryAndProducts = async () => {
         try {
-            // Fetch all categories and find the one with matching slug
             const categoriesResponse = await axios.get('/categories');
-            const allCategories = categoriesResponse.data.data;
+            const cats = categoriesResponse.data.data;
+            setAllCategories(cats);
+            setMainCategories(cats.filter((c: Category) => c.level === 1));
 
-            let foundCategory: Category | null = null;
-            let mainCategoryId: string | null = null;
-            let subCategoryId: string | null = null;
-
-            const findCategory = (cats: Category[], mainId?: string, subId?: string): Category | null => {
-                for (const cat of cats) {
-                    if (cat.slug === slug) {
-                        if (cat.level === 1) {
-                            mainCategoryId = cat._id;
-                        } else if (cat.level === 2) {
-                            mainCategoryId = mainId || null;
-                            subCategoryId = cat._id;
-                        } else if (cat.level === 3) {
-                            mainCategoryId = mainId || null;
-                            subCategoryId = subId || null;
-                        }
-                        return cat;
-                    }
-                    if (cat.children && cat.children.length > 0) {
-                        const newMainId = cat.level === 1 ? cat._id : mainId;
-                        const newSubId = cat.level === 2 ? cat._id : subId;
-                        const found = findCategory(cat.children, newMainId, newSubId);
-                        if (found) {
-                            return found;
-                        }
+            // Find the category by slug to set initial state
+            const findCategoryBySlug = (categories: Category[]): Category | null => {
+                for (const cat of categories) {
+                    if (cat.slug === slug) return cat;
+                    if (cat.children) {
+                        const found = findCategoryBySlug(cat.children);
+                        if (found) return found;
                     }
                 }
                 return null;
             };
 
-            foundCategory = findCategory(allCategories);
-            setCategory(foundCategory);
+            const foundCat = findCategoryBySlug(cats);
+            if (foundCat) {
+                setCategory(foundCat);
 
-            if (foundCategory) {
-                // Fetch products for this category with proper parent categories
-                let productsResponse;
-                try {
-                    if (foundCategory.level === 1) {
-                        // Main category - just send mainCategory
-                        productsResponse = await axios.get(`/products?mainCategory=${foundCategory._id}`);
-                    } else if (foundCategory.level === 2 && mainCategoryId) {
-                        // Sub category - send mainCategory and subCategory
-                        productsResponse = await axios.get(`/products?mainCategory=${mainCategoryId}&subCategory=${foundCategory._id}`);
-                    } else if (foundCategory.level === 3 && mainCategoryId && subCategoryId) {
-                        // Base category - send all three
-                        productsResponse = await axios.get(`/products?mainCategory=${mainCategoryId}&subCategory=${subCategoryId}&baseCategory=${foundCategory._id}`);
-                    }
-                    // Handle the nested response structure
-                    const productData = productsResponse?.data?.data?.products || productsResponse?.data?.products || productsResponse?.data?.data || [];
-                    setProducts(productData);
-                } catch (productError) {
-                    console.error('Error fetching products:', productError);
-                    setProducts([]);
+                // If it's a main category, load its products directly
+                if (foundCat.level === 1) {
+                    setSelectedMainId(foundCat._id);
+                    fetchProducts(foundCat._id, '', '');
                 }
             }
         } catch (error) {
-            console.error('Error fetching data:', error);
+            console.error('Error fetching categories:', error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const fetchProducts = async (mainId: string, subId: string, baseId: string) => {
+        try {
+            let url = '/products?';
+            if (mainId) url += `mainCategory=${mainId}`;
+            if (subId) url += `&subCategory=${subId}`;
+            if (baseId) url += `&baseCategory=${baseId}`;
+
+            const response = await axios.get(url);
+            const productData = response?.data?.data?.products || response?.data?.products || response?.data?.data || [];
+            setProducts(productData);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+            setProducts([]);
+        }
+    };
+
+    const handleMainCategoryChange = (mainId: string) => {
+        setSelectedMainId(mainId);
+        setSelectedSubId('');
+        setSelectedBaseId('');
+        setSubCategories([]);
+        setBaseCategories([]);
+
+        if (mainId) {
+            const mainCat = mainCategories.find(c => c._id === mainId);
+            if (mainCat?.children) {
+                setSubCategories(mainCat.children);
+            }
+            fetchProducts(mainId, '', '');
+        } else {
+            setProducts([]);
+        }
+    };
+
+    const handleSubCategoryChange = (subId: string) => {
+        setSelectedSubId(subId);
+        setSelectedBaseId('');
+        setBaseCategories([]);
+
+        if (subId) {
+            const subCat = subCategories.find(c => c._id === subId);
+            if (subCat?.children) {
+                setBaseCategories(subCat.children);
+            }
+            fetchProducts(selectedMainId, subId, '');
+        } else if (selectedMainId) {
+            fetchProducts(selectedMainId, '', '');
+        }
+    };
+
+    const handleBaseCategoryChange = (baseId: string) => {
+        setSelectedBaseId(baseId);
+
+        if (baseId) {
+            fetchProducts(selectedMainId, selectedSubId, baseId);
+        } else if (selectedSubId) {
+            fetchProducts(selectedMainId, selectedSubId, '');
         }
     };
 
@@ -180,26 +217,164 @@ export default function CategoryPage() {
                 </div>
             </section>
 
-            {/* Subcategories */}
-            {category.children && category.children.length > 0 && (
-                <section className="py-12 bg-gray-50">
-                    <div className="container mx-auto px-4">
-                        <h2 className="text-3xl font-serif font-bold text-gray-800 mb-8">Subcategories</h2>
-                        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-                            {category.children.map((subcat) => (
-                                <Link key={subcat._id} href={`/${locale}/categories/${subcat.slug}`}>
-                                    <motion.div
-                                        whileHover={{ y: -5 }}
-                                        className="bg-white rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 text-center h-32 flex items-center justify-center"
+            {/* Category Filters */}
+            <section className="py-16 bg-gradient-to-b from-gray-50 to-white relative overflow-hidden">
+                {/* Decorative Elements */}
+                <div className="absolute top-0 right-0 w-64 h-64 bg-primary-100 rounded-full blur-3xl opacity-20 animate-pulse" />
+                <div className="absolute bottom-0 left-0 w-96 h-96 bg-secondary-100 rounded-full blur-3xl opacity-20 animate-pulse delay-700" />
+
+                <div className="container mx-auto px-4 relative z-10">
+                    <motion.div
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.6 }}
+                        className="text-center mb-12"
+                    >
+                        <h2 className="text-4xl font-serif font-bold gradient-text mb-3">Refine Your Search</h2>
+                        <p className="text-gray-600">Select categories to find your perfect jewelry piece</p>
+                    </motion.div>
+
+                    <motion.div
+                        initial={{ opacity: 0, y: 30 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.7, delay: 0.2 }}
+                        className="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100"
+                    >
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                            {/* Main Category Dropdown */}
+                            <motion.div
+                                initial={{ opacity: 0, x: -20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.3 }}
+                                className="relative group"
+                            >
+                                <label className="text-sm font-bold text-gray-700 mb-3 flex items-center">
+                                    <span className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center text-sm font-bold mr-2">1</span>
+                                    Main Category
+                                </label>
+                                <div className="relative">
+                                    <select
+                                        value={selectedMainId}
+                                        onChange={(e) => handleMainCategoryChange(e.target.value)}
+                                        className="w-full px-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 focus:outline-none bg-white text-gray-800 font-semibold transition-all duration-300 appearance-none cursor-pointer hover:border-primary-300 hover:shadow-lg"
                                     >
-                                        <h3 className="text-lg font-semibold text-gray-800">{subcat.nameEn}</h3>
+                                        <option value="">Select Main Category</option>
+                                        {mainCategories.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>
+                                                {cat.nameEn}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                        <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                {selectedMainId && (
+                                    <motion.div
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"
+                                    >
+                                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
                                     </motion.div>
-                                </Link>
-                            ))}
+                                )}
+                            </motion.div>
+
+                            {/* Sub Category Dropdown */}
+                            <motion.div
+                                initial={{ opacity: 0, y: -20 }}
+                                animate={{ opacity: 1, y: 0 }}
+                                transition={{ duration: 0.5, delay: 0.4 }}
+                                className="relative group"
+                            >
+                                <label className="text-sm font-bold text-gray-700 mb-3 flex items-center">
+                                    <span className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center text-sm font-bold mr-2">2</span>
+                                    Sub Category
+                                </label>
+                                <div className="relative">
+                                    <select
+                                        value={selectedSubId}
+                                        onChange={(e) => handleSubCategoryChange(e.target.value)}
+                                        disabled={!selectedMainId || subCategories.length === 0}
+                                        className="w-full px-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 focus:outline-none bg-white text-gray-800 font-semibold disabled:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 transition-all duration-300 appearance-none cursor-pointer hover:border-primary-300 hover:shadow-lg disabled:hover:border-gray-200 disabled:hover:shadow-none"
+                                    >
+                                        <option value="">All Subcategories</option>
+                                        {subCategories.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>
+                                                {cat.nameEn}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                        <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                {selectedSubId && (
+                                    <motion.div
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"
+                                    >
+                                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </motion.div>
+                                )}
+                            </motion.div>
+
+                            {/* Base Category Dropdown */}
+                            <motion.div
+                                initial={{ opacity: 0, x: 20 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                transition={{ duration: 0.5, delay: 0.5 }}
+                                className="relative group"
+                            >
+                                <label className="text-sm font-bold text-gray-700 mb-3 flex items-center">
+                                    <span className="w-8 h-8 rounded-full bg-primary-100 text-primary-600 flex items-center justify-center text-sm font-bold mr-2">3</span>
+                                    Base Category
+                                </label>
+                                <div className="relative">
+                                    <select
+                                        value={selectedBaseId}
+                                        onChange={(e) => handleBaseCategoryChange(e.target.value)}
+                                        disabled={!selectedSubId || baseCategories.length === 0}
+                                        className="w-full px-4 py-4 rounded-xl border-2 border-gray-200 focus:border-primary-500 focus:ring-4 focus:ring-primary-100 focus:outline-none bg-white text-gray-800 font-semibold disabled:bg-gray-50 disabled:cursor-not-allowed disabled:opacity-60 transition-all duration-300 appearance-none cursor-pointer hover:border-primary-300 hover:shadow-lg disabled:hover:border-gray-200 disabled:hover:shadow-none"
+                                    >
+                                        <option value="">All Base Categories</option>
+                                        {baseCategories.map((cat) => (
+                                            <option key={cat._id} value={cat._id}>
+                                                {cat.nameEn}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <div className="absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+                                        <svg className="w-5 h-5 text-primary-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                        </svg>
+                                    </div>
+                                </div>
+                                {selectedBaseId && (
+                                    <motion.div
+                                        initial={{ scale: 0 }}
+                                        animate={{ scale: 1 }}
+                                        className="absolute -top-2 -right-2 w-6 h-6 bg-green-500 rounded-full flex items-center justify-center"
+                                    >
+                                        <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                                        </svg>
+                                    </motion.div>
+                                )}
+                            </motion.div>
                         </div>
-                    </div>
-                </section>
-            )}
+                    </motion.div>
+                </div>
+            </section>
 
             {/* Products Section */}
             <section className="py-16">
