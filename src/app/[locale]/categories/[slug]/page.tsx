@@ -68,28 +68,62 @@ export default function CategoryPage() {
             const categoriesResponse = await axios.get('/categories');
             const cats = categoriesResponse.data.data;
             setAllCategories(cats);
-            setMainCategories(cats.filter((c: Category) => c.level === 1));
+            const mains = cats.filter((c: Category) => c.level === 1);
+            setMainCategories(mains);
 
-            // Find the category by slug to set initial state
-            const findCategoryBySlug = (categories: Category[]): Category | null => {
+            // Find the category by slug and its parents
+            const findCategoryAndParents = (categories: Category[], parentMain?: Category, parentSub?: Category): { cat: Category | null, main?: Category, sub?: Category } => {
                 for (const cat of categories) {
-                    if (cat.slug === slug) return cat;
+                    if (cat.slug === slug) {
+                        return { cat, main: parentMain, sub: parentSub };
+                    }
                     if (cat.children) {
-                        const found = findCategoryBySlug(cat.children);
-                        if (found) return found;
+                        const found = findCategoryAndParents(
+                            cat.children,
+                            cat.level === 1 ? cat : parentMain,
+                            cat.level === 2 ? cat : parentSub
+                        );
+                        if (found.cat) return found;
                     }
                 }
-                return null;
+                return { cat: null };
             };
 
-            const foundCat = findCategoryBySlug(cats);
-            if (foundCat) {
-                setCategory(foundCat);
+            const result = findCategoryAndParents(cats);
+            if (result.cat) {
+                setCategory(result.cat);
 
-                // If it's a main category, load its products directly
-                if (foundCat.level === 1) {
-                    setSelectedMainId(foundCat._id);
-                    fetchProducts(foundCat._id, '', '');
+                // Handle based on category level
+                if (result.cat.level === 1) {
+                    // Main category - populate subcategories
+                    setSelectedMainId(result.cat._id);
+                    if (result.cat.children) {
+                        setSubCategories(result.cat.children);
+                    }
+                    fetchProducts(result.cat._id, '', '');
+                } else if (result.cat.level === 2 && result.main) {
+                    // Sub category - populate main and subcategories
+                    setSelectedMainId(result.main._id);
+                    setSelectedSubId(result.cat._id);
+                    if (result.main.children) {
+                        setSubCategories(result.main.children);
+                    }
+                    if (result.cat.children) {
+                        setBaseCategories(result.cat.children);
+                    }
+                    fetchProducts(result.main._id, result.cat._id, '');
+                } else if (result.cat.level === 3 && result.main && result.sub) {
+                    // Base category - populate all levels
+                    setSelectedMainId(result.main._id);
+                    setSelectedSubId(result.sub._id);
+                    setSelectedBaseId(result.cat._id);
+                    if (result.main.children) {
+                        setSubCategories(result.main.children);
+                    }
+                    if (result.sub.children) {
+                        setBaseCategories(result.sub.children);
+                    }
+                    fetchProducts(result.main._id, result.sub._id, result.cat._id);
                 }
             }
         } catch (error) {
