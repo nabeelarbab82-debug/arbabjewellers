@@ -59,6 +59,41 @@ export default function ProductTable({ products, onEdit, onDelete, onToggleFeatu
         setCurrentPage(1);
     };
 
+    // Generate page numbers to display with ellipsis
+    const getPageNumbers = () => {
+        const delta = 2; // Number of pages to show on each side of current page
+        const pages: (number | string)[] = [];
+
+        if (totalPages <= 7) {
+            // Show all pages if total is 7 or less
+            return Array.from({ length: totalPages }, (_, i) => i + 1);
+        }
+
+        // Always show first page
+        pages.push(1);
+
+        if (currentPage > delta + 2) {
+            pages.push('...');
+        }
+
+        // Show pages around current page
+        const start = Math.max(2, currentPage - delta);
+        const end = Math.min(totalPages - 1, currentPage + delta);
+
+        for (let i = start; i <= end; i++) {
+            pages.push(i);
+        }
+
+        if (currentPage < totalPages - delta - 1) {
+            pages.push('...');
+        }
+
+        // Always show last page
+        pages.push(totalPages);
+
+        return pages;
+    };
+
     return (
         <div className="space-y-4">
             {/* Search Bar */}
@@ -156,10 +191,10 @@ export default function ProductTable({ products, onEdit, onDelete, onToggleFeatu
                                     </td>
                                     <td className="px-6 py-4 whitespace-nowrap">
                                         <span className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${product.stock > 10
-                                                ? 'bg-green-100 text-green-800'
-                                                : product.stock > 0
-                                                    ? 'bg-yellow-100 text-yellow-800'
-                                                    : 'bg-red-100 text-red-800'
+                                            ? 'bg-green-100 text-green-800'
+                                            : product.stock > 0
+                                                ? 'bg-yellow-100 text-yellow-800'
+                                                : 'bg-red-100 text-red-800'
                                             }`}>
                                             {product.stock}
                                         </span>
@@ -168,8 +203,8 @@ export default function ProductTable({ products, onEdit, onDelete, onToggleFeatu
                                         <button
                                             onClick={() => onToggleFeatured(product._id, product.isFeatured)}
                                             className={`p-2 rounded-lg transition-colors ${product.isFeatured
-                                                    ? 'bg-yellow-100 text-yellow-600 hover:bg-yellow-200'
-                                                    : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
+                                                ? 'bg-yellow-100 text-yellow-600 hover:bg-yellow-200'
+                                                : 'bg-gray-100 text-gray-400 hover:bg-gray-200'
                                                 }`}
                                         >
                                             <FiStar className={`w-4 h-4 ${product.isFeatured ? 'fill-current' : ''}`} />
@@ -226,17 +261,23 @@ export default function ProductTable({ products, onEdit, onDelete, onToggleFeatu
                             </button>
 
                             <div className="flex items-center space-x-1">
-                                {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
-                                    <button
-                                        key={page}
-                                        onClick={() => setCurrentPage(page)}
-                                        className={`px-4 py-2 rounded-lg font-medium transition-colors ${currentPage === page
+                                {getPageNumbers().map((page, index) => (
+                                    typeof page === 'number' ? (
+                                        <button
+                                            key={page}
+                                            onClick={() => setCurrentPage(page)}
+                                            className={`px-4 py-2 rounded-lg font-medium transition-colors ${currentPage === page
                                                 ? 'bg-primary-600 text-white'
                                                 : 'hover:bg-gray-100 text-gray-700'
-                                            }`}
-                                    >
-                                        {page}
-                                    </button>
+                                                }`}
+                                        >
+                                            {page}
+                                        </button>
+                                    ) : (
+                                        <span key={`ellipsis-${index}`} className="px-2 text-gray-500">
+                                            {page}
+                                        </span>
+                                    )
                                 ))}
                             </div>
 
