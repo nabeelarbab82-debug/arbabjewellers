@@ -52,7 +52,10 @@ export default function CompanyPage() {
             setLoading(true);
             const response = await api.get('/admin/company');
             if (response.data.data) {
-                setCompany(response.data.data);
+                setCompany({
+                    ...response.data.data,
+                    mapLocation: response.data.data.mapLocation || { lat: 0, lng: 0 }
+                });
             }
         } catch (error) {
             toast.error('Failed to fetch company information');
@@ -269,11 +272,11 @@ export default function CompanyPage() {
                                 <input
                                     type="number"
                                     step="any"
-                                    value={company.mapLocation.lat}
+                                    value={company.mapLocation?.lat || 0}
                                     onChange={(e) =>
                                         setCompany({
                                             ...company,
-                                            mapLocation: { ...company.mapLocation, lat: parseFloat(e.target.value) },
+                                            mapLocation: { ...company.mapLocation, lat: parseFloat(e.target.value) || 0 },
                                         })
                                     }
                                     className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"
@@ -286,11 +289,11 @@ export default function CompanyPage() {
                                 <input
                                     type="number"
                                     step="any"
-                                    value={company.mapLocation.lng}
+                                    value={company.mapLocation?.lng || 0}
                                     onChange={(e) =>
                                         setCompany({
                                             ...company,
-                                            mapLocation: { ...company.mapLocation, lng: parseFloat(e.target.value) },
+                                            mapLocation: { ...company.mapLocation, lng: parseFloat(e.target.value) || 0 },
                                         })
                                     }
                                     className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:outline-none"

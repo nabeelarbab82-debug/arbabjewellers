@@ -31,9 +31,10 @@ export default function ContactsPage() {
         try {
             setLoading(true);
             const response = await api.get('/admin/contacts');
-            setContacts(response.data.data);
+            setContacts(response.data.data || []);
         } catch (error) {
             toast.error('Failed to fetch contacts');
+            setContacts([]);
         } finally {
             setLoading(false);
         }
@@ -76,7 +77,7 @@ export default function ContactsPage() {
                         >
                             <div className="text-sm text-gray-600 capitalize mb-1">{status}</div>
                             <div className="text-2xl font-bold text-gray-800">
-                                {contacts.filter((c) => c.status === status).length}
+                                {contacts?.filter((c) => c.status === status).length || 0}
                             </div>
                         </motion.div>
                     ))}
@@ -114,7 +115,7 @@ export default function ContactsPage() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
-                                    {contacts.map((contact) => (
+                                    {contacts?.map((contact) => (
                                         <tr
                                             key={contact._id}
                                             className="hover:bg-gray-50 transition-colors cursor-pointer"

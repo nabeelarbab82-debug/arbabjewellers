@@ -64,13 +64,13 @@ export default function OrdersPage() {
         }
     };
 
-    const filteredOrders = orders.filter((order) => {
+    const filteredOrders = orders?.filter((order) => {
         const matchesSearch =
             order.orderId.toLowerCase().includes(searchTerm.toLowerCase()) ||
             order.customer.name.toLowerCase().includes(searchTerm.toLowerCase());
         const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
         return matchesSearch && matchesStatus;
-    });
+    }) || [];
 
     const statusColors: Record<string, string> = {
         pending: 'bg-yellow-100 text-yellow-800',

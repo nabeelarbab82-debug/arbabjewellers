@@ -32,9 +32,10 @@ export default function NewsletterPage() {
         try {
             setLoading(true);
             const response = await api.get('/admin/newsletter/subscribers');
-            setSubscribers(response.data.data);
+            setSubscribers(response.data.data || []);
         } catch (error) {
             toast.error('Failed to fetch subscribers');
+            setSubscribers([]);
         } finally {
             setLoading(false);
         }
@@ -88,7 +89,7 @@ export default function NewsletterPage() {
                         className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-xl p-6 text-white shadow-lg"
                     >
                         <FiMail className="w-8 h-8 mb-2" />
-                        <h3 className="text-3xl font-bold">{subscribers.length}</h3>
+                        <h3 className="text-3xl font-bold">{subscribers?.length || 0}</h3>
                         <p className="text-blue-100">Total Subscribers</p>
                     </motion.div>
 
@@ -100,7 +101,7 @@ export default function NewsletterPage() {
                     >
                         <FiSend className="w-8 h-8 mb-2" />
                         <h3 className="text-3xl font-bold">
-                            {subscribers.filter((s) => s.isActive).length}
+                            {subscribers?.filter((s) => s.isActive).length || 0}
                         </h3>
                         <p className="text-green-100">Active Subscribers</p>
                     </motion.div>
@@ -146,7 +147,7 @@ export default function NewsletterPage() {
                             className="flex items-center space-x-2 px-6 py-3 gradient-gold text-white rounded-lg shadow-lg disabled:opacity-50"
                         >
                             <FiSend />
-                            <span>{sending ? 'Sending...' : `Send to ${subscribers.length} subscribers`}</span>
+                            <span>{sending ? 'Sending...' : `Send to ${subscribers?.length || 0} subscribers`}</span>
                         </motion.button>
                     </form>
                 </motion.div>
@@ -180,7 +181,7 @@ export default function NewsletterPage() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
-                                    {subscribers.map((subscriber) => (
+                                    {subscribers?.map((subscriber) => (
                                         <tr key={subscriber._id} className="hover:bg-gray-50 transition-colors">
                                             <td className="px-6 py-4">
                                                 <span className="text-sm text-gray-900">{subscriber.email}</span>
@@ -188,8 +189,8 @@ export default function NewsletterPage() {
                                             <td className="px-6 py-4">
                                                 <span
                                                     className={`px-3 py-1 inline-flex text-xs leading-5 font-semibold rounded-full ${subscriber.isActive
-                                                            ? 'bg-green-100 text-green-800'
-                                                            : 'bg-gray-100 text-gray-800'
+                                                        ? 'bg-green-100 text-green-800'
+                                                        : 'bg-gray-100 text-gray-800'
                                                         }`}
                                                 >
                                                     {subscriber.isActive ? 'Active' : 'Inactive'}
