@@ -6,11 +6,14 @@ import Image from 'next/image';
 import { motion } from 'framer-motion';
 import { FiMail, FiPhone, FiMapPin } from 'react-icons/fi';
 import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
+import { useSettings } from '@/hooks/useSettings';
 
 export default function Footer() {
     const t = useTranslations('footer');
     const tCommon = useTranslations('common');
     const locale = useLocale();
+    const { settings } = useSettings();
+    console.log('Settings in Footer:', settings);
 
     const quickLinks = [
         { href: `/${locale}`, label: tCommon('home') },
@@ -26,13 +29,6 @@ export default function Footer() {
         { href: `/${locale}/returns`, label: t('returnPolicy') },
         { href: `/${locale}/shipping`, label: t('shipping') },
         { href: `/${locale}/faq`, label: t('faq') },
-    ];
-
-    const socialLinks = [
-        { icon: FaFacebookF, href: 'https://web.facebook.com/profile.php?id=61585786391480', label: 'Facebook' },
-        { icon: FaInstagram, href: 'https://www.instagram.com/arbab_jeweller/', label: 'Instagram' },
-        { icon: FaYoutube, href: 'https://www.youtube.com/channel/UCeLpWAiVC4olmFe0_UiJ_fQ', label: 'YouTube' },
-        { icon: FaTiktok, href: 'https://www.tiktok.com/@arbab_jeweller?lang=en', label: 'TikTok' },
     ];
 
     return (
@@ -59,20 +55,58 @@ export default function Footer() {
                             {t('description')}
                         </p>
                         <div className="flex space-x-4">
-                            {socialLinks.map((social) => (
+                            {settings.socialMedia.facebook.visible && settings.socialMedia.facebook.url && (
                                 <motion.a
-                                    key={social.label}
-                                    href={social.href}
+                                    href={settings.socialMedia.facebook.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
                                     whileHover={{ scale: 1.2, y: -2 }}
                                     whileTap={{ scale: 0.95 }}
                                     className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all"
-                                    aria-label={social.label}
+                                    aria-label="Facebook"
                                 >
-                                    <social.icon className="w-5 h-5" />
+                                    <FaFacebookF className="w-5 h-5" />
                                 </motion.a>
-                            ))}
+                            )}
+                            {settings.socialMedia.instagram.visible && settings.socialMedia.instagram.url && (
+                                <motion.a
+                                    href={settings.socialMedia.instagram.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    whileHover={{ scale: 1.2, y: -2 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all"
+                                    aria-label="Instagram"
+                                >
+                                    <FaInstagram className="w-5 h-5" />
+                                </motion.a>
+                            )}
+                            {settings.socialMedia.youtube.visible && settings.socialMedia.youtube.url && (
+                                <motion.a
+                                    href={settings.socialMedia.youtube.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    whileHover={{ scale: 1.2, y: -2 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all"
+                                    aria-label="YouTube"
+                                >
+                                    <FaYoutube className="w-5 h-5" />
+                                </motion.a>
+                            )}
+                            {settings.socialMedia.tiktok.visible && settings.socialMedia.tiktok.url && (
+                                <motion.a
+                                    href={settings.socialMedia.tiktok.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    whileHover={{ scale: 1.2, y: -2 }}
+                                    whileTap={{ scale: 0.95 }}
+                                    className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all"
+                                    aria-label="TikTok"
+                                >
+                                    <FaTiktok className="w-5 h-5" />
+                                </motion.a>
+                            )}
                         </div>
                     </motion.div>
 
@@ -133,29 +167,54 @@ export default function Footer() {
                             <div className="flex items-start space-x-3">
                                 <FiMapPin className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
                                 <div className="text-gray-300">
-                                    <a
-                                        href="https://www.google.com/maps?q=33.5484744,73.1306932&z=17&hl=en"
-                                        target="_blank"
-                                        rel="noopener noreferrer"
-                                        className="hover:text-primary-400 transition-colors block mb-2"
-                                    >
-                                        Shop No.13-A Opposite Arena Cinema, Phase 4 Bahria Heights 3, Bahria Town Rawalpindi
+                                    {settings.contactInfo.googleMapsUrl && (
+                                        <a
+                                            href={settings.contactInfo.googleMapsUrl}
+                                            target="_blank"
+                                            rel="noopener noreferrer"
+                                            className="hover:text-primary-400 transition-colors block mb-2"
+                                        >
+                                            {settings.contactInfo.address1}
+                                        </a>
+                                    )}
+                                    {!settings.contactInfo.googleMapsUrl && settings.contactInfo.address1 && (
+                                        <span className="block mb-2">{settings.contactInfo.address1}</span>
+                                    )}
+                                    {settings.contactInfo.address2 && (
+                                        <span className="block">{settings.contactInfo.address2}</span>
+                                    )}
+                                </div>
+                            </div>
+                            {(settings.contactInfo.phone1 || settings.contactInfo.phone2 || settings.contactInfo.phone3) && (
+                                <div className="flex items-start space-x-3">
+                                    <FiPhone className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
+                                    <div className="space-y-1">
+                                        {settings.contactInfo.phone1 && (
+                                            <a href={`tel:${settings.contactInfo.phone1.replace(/[^0-9]/g, '')}`} className="text-gray-300 hover:text-primary-400 transition-colors block">
+                                                Call: {settings.contactInfo.phone1}
+                                            </a>
+                                        )}
+                                        {settings.contactInfo.phone2 && (
+                                            <a href={`tel:${settings.contactInfo.phone2.replace(/[^0-9]/g, '')}`} className="text-gray-300 hover:text-primary-400 transition-colors block">
+                                                WhatsApp: {settings.contactInfo.phone2}
+                                            </a>
+                                        )}
+                                        {settings.contactInfo.phone3 && (
+                                            <a href={`tel:${settings.contactInfo.phone3.replace(/[^0-9]/g, '')}`} className="text-gray-300 hover:text-primary-400 transition-colors block">
+                                                PTCL: {settings.contactInfo.phone3}
+                                            </a>
+                                        )}
+                                    </div>
+                                </div>
+                            )}
+                            {settings.contactInfo.email && (
+                                <div className="flex items-center space-x-3">
+                                    <FiMail className="w-5 h-5 text-primary-400 flex-shrink-0" />
+                                    <a href={`mailto:${settings.contactInfo.email}`} className="text-gray-300 hover:text-primary-400 transition-colors">
+                                        {settings.contactInfo.email}
                                     </a>
-                                    <span className="block">Shop#75, Lalkurti, Rawalpindi Cantt</span>
                                 </div>
-                            </div>
-                            <div className="flex items-start space-x-3">
-                                <FiPhone className="w-5 h-5 text-primary-400 mt-1 flex-shrink-0" />
-                                <div className="space-y-1">
-                                    <a href="tel:03335861171" className="text-gray-300 hover:text-primary-400 transition-colors block">Call: 0333-5861171</a>
-                                    <a href="tel:03323026222" className="text-gray-300 hover:text-primary-400 transition-colors block">WhatsApp: 0332-3026222</a>
-                                    <a href="tel:0516102658" className="text-gray-300 hover:text-primary-400 transition-colors block">PTCL: 051-6102658</a>
-                                </div>
-                            </div>
-                            <div className="flex items-center space-x-3">
-                                <FiMail className="w-5 h-5 text-primary-400 flex-shrink-0" />
-                                <a href="mailto:arbabjewellersofficial@gmail.com" className="text-gray-300 hover:text-primary-400 transition-colors">arbabjewellersofficial@gmail.com</a>
-                            </div>
+                            )}
                         </div>
                     </motion.div>
                 </div>

@@ -8,6 +8,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { FiShoppingCart, FiSearch, FiMenu, FiX, FiGlobe, FiPhone, FiMail } from 'react-icons/fi';
 import { FaFacebookF, FaInstagram, FaTiktok, FaYoutube } from 'react-icons/fa';
 import { useCartStore } from '@/store/cartStore';
+import { useSettings } from '@/hooks/useSettings';
 import LanguageSwitcher from './LanguageSwitcher';
 
 export default function Header() {
@@ -18,6 +19,7 @@ export default function Header() {
     const [isScrolled, setIsScrolled] = useState(false);
     const [isSearchOpen, setIsSearchOpen] = useState(false);
     const totalItems = useCartStore((state) => state.getTotalItems());
+    const { settings } = useSettings();
 
     useEffect(() => {
         const handleScroll = () => {
@@ -42,32 +44,46 @@ export default function Header() {
                 <div className="container mx-auto px-4 py-1.5">
                     <div className="flex flex-col sm:flex-row items-center justify-between gap-2 text-sm">
                         <div className="flex flex-wrap items-center gap-4 text-gray-400">
-                            <a href="tel:03335861171" className="flex items-center gap-1 hover:text-primary-400 transition-colors">
-                                <FiPhone className="w-4 h-4" />
-                                <span>0333-5861171</span>
-                            </a>
-                            <a href="tel:03323026222" className="flex items-center gap-1 hover:text-primary-400 transition-colors">
-                                <FiPhone className="w-4 h-4" />
-                                <span>0332-3026222</span>
-                            </a>
-                            <a href="mailto:arbabjewellersofficial@gmail.com" className="flex items-center gap-1 hover:text-primary-400 transition-colors">
-                                <FiMail className="w-4 h-4" />
-                                <span className="hidden sm:inline">arbabjewellersofficial@gmail.com</span>
-                            </a>
+                            {settings.contactInfo.phone1 && (
+                                <a href={`tel:${settings.contactInfo.phone1.replace(/[^0-9]/g, '')}`} className="flex items-center gap-1 hover:text-primary-400 transition-colors">
+                                    <FiPhone className="w-4 h-4" />
+                                    <span>{settings.contactInfo.phone1}</span>
+                                </a>
+                            )}
+                            {settings.contactInfo.phone2 && (
+                                <a href={`tel:${settings.contactInfo.phone2.replace(/[^0-9]/g, '')}`} className="flex items-center gap-1 hover:text-primary-400 transition-colors">
+                                    <FiPhone className="w-4 h-4" />
+                                    <span>{settings.contactInfo.phone2}</span>
+                                </a>
+                            )}
+                            {settings.contactInfo.email && (
+                                <a href={`mailto:${settings.contactInfo.email}`} className="flex items-center gap-1 hover:text-primary-400 transition-colors">
+                                    <FiMail className="w-4 h-4" />
+                                    <span className="hidden sm:inline">{settings.contactInfo.email}</span>
+                                </a>
+                            )}
                         </div>
                         <div className="flex items-center gap-3">
-                            <a href="https://web.facebook.com/profile.php?id=61585786391480" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
-                                <FaFacebookF className="w-4 h-4" />
-                            </a>
-                            <a href="https://www.instagram.com/arbab_jeweller/" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
-                                <FaInstagram className="w-4 h-4" />
-                            </a>
-                            <a href="https://www.youtube.com/channel/UCeLpWAiVC4olmFe0_UiJ_fQ" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
-                                <FaYoutube className="w-4 h-4" />
-                            </a>
-                            <a href="https://www.tiktok.com/@arbab_jeweller?lang=en" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
-                                <FaTiktok className="w-4 h-4" />
-                            </a>
+                            {settings.socialMedia.facebook.visible && settings.socialMedia.facebook.url && (
+                                <a href={settings.socialMedia.facebook.url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
+                                    <FaFacebookF className="w-4 h-4" />
+                                </a>
+                            )}
+                            {settings.socialMedia.instagram.visible && settings.socialMedia.instagram.url && (
+                                <a href={settings.socialMedia.instagram.url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
+                                    <FaInstagram className="w-4 h-4" />
+                                </a>
+                            )}
+                            {settings.socialMedia.youtube.visible && settings.socialMedia.youtube.url && (
+                                <a href={settings.socialMedia.youtube.url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
+                                    <FaYoutube className="w-4 h-4" />
+                                </a>
+                            )}
+                            {settings.socialMedia.tiktok.visible && settings.socialMedia.tiktok.url && (
+                                <a href={settings.socialMedia.tiktok.url} target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-primary-400 transition-colors">
+                                    <FaTiktok className="w-4 h-4" />
+                                </a>
+                            )}
                         </div>
                     </div>
                 </div>
@@ -213,36 +229,52 @@ export default function Header() {
                                 {/* Contact & Social Info - Mobile Only */}
                                 <div className="mt-5 pt-5 border-t border-primary-500/20 px-3 pb-5">
                                     <div className="space-y-3 mb-4">
-                                        <a href="tel:03335861171" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
-                                            <FiPhone className="w-5 h-5" />
-                                            <span>0333-5861171</span>
-                                        </a>
-                                        <a href="tel:03323026222" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
-                                            <FiPhone className="w-5 h-5" />
-                                            <span>0332-3026222 (WhatsApp)</span>
-                                        </a>
-                                        <a href="tel:0516102658" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
-                                            <FiPhone className="w-5 h-5" />
-                                            <span>051-6102658 (PTCL)</span>
-                                        </a>
-                                        <a href="mailto:arbabjewellersofficial@gmail.com" className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
-                                            <FiMail className="w-5 h-5" />
-                                            <span className="break-all">arbabjewellersofficial@gmail.com</span>
-                                        </a>
+                                        {settings.contactInfo.phone1 && (
+                                            <a href={`tel:${settings.contactInfo.phone1.replace(/[^0-9]/g, '')}`} className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
+                                                <FiPhone className="w-5 h-5" />
+                                                <span>{settings.contactInfo.phone1}</span>
+                                            </a>
+                                        )}
+                                        {settings.contactInfo.phone2 && (
+                                            <a href={`tel:${settings.contactInfo.phone2.replace(/[^0-9]/g, '')}`} className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
+                                                <FiPhone className="w-5 h-5" />
+                                                <span>{settings.contactInfo.phone2} (WhatsApp)</span>
+                                            </a>
+                                        )}
+                                        {settings.contactInfo.phone3 && (
+                                            <a href={`tel:${settings.contactInfo.phone3.replace(/[^0-9]/g, '')}`} className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
+                                                <FiPhone className="w-5 h-5" />
+                                                <span>{settings.contactInfo.phone3} (PTCL)</span>
+                                            </a>
+                                        )}
+                                        {settings.contactInfo.email && (
+                                            <a href={`mailto:${settings.contactInfo.email}`} className="flex items-center gap-2 text-gray-300 hover:text-primary-400 transition-colors text-base">
+                                                <FiMail className="w-5 h-5" />
+                                                <span className="break-all">{settings.contactInfo.email}</span>
+                                            </a>
+                                        )}
                                     </div>
                                     <div className="flex items-center gap-4 justify-center pt-4 pb-3">
-                                        <a href="https://web.facebook.com/profile.php?id=61585786391480" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
-                                            <FaFacebookF className="w-4 h-4" />
-                                        </a>
-                                        <a href="https://www.instagram.com/arbab_jeweller/" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
-                                            <FaInstagram className="w-4 h-4" />
-                                        </a>
-                                        <a href="https://www.youtube.com/channel/UCeLpWAiVC4olmFe0_UiJ_fQ" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
-                                            <FaYoutube className="w-4 h-4" />
-                                        </a>
-                                        <a href="https://www.tiktok.com/@arbab_jeweller?lang=en" target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
-                                            <FaTiktok className="w-4 h-4" />
-                                        </a>
+                                        {settings.socialMedia.facebook.visible && settings.socialMedia.facebook.url && (
+                                            <a href={settings.socialMedia.facebook.url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
+                                                <FaFacebookF className="w-4 h-4" />
+                                            </a>
+                                        )}
+                                        {settings.socialMedia.instagram.visible && settings.socialMedia.instagram.url && (
+                                            <a href={settings.socialMedia.instagram.url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
+                                                <FaInstagram className="w-4 h-4" />
+                                            </a>
+                                        )}
+                                        {settings.socialMedia.youtube.visible && settings.socialMedia.youtube.url && (
+                                            <a href={settings.socialMedia.youtube.url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
+                                                <FaYoutube className="w-4 h-4" />
+                                            </a>
+                                        )}
+                                        {settings.socialMedia.tiktok.visible && settings.socialMedia.tiktok.url && (
+                                            <a href={settings.socialMedia.tiktok.url} target="_blank" rel="noopener noreferrer" className="w-10 h-10 rounded-full bg-primary-500/10 hover:bg-primary-500 hover:text-black border border-primary-500/30 flex items-center justify-center transition-all">
+                                                <FaTiktok className="w-4 h-4" />
+                                            </a>
+                                        )}
                                     </div>
                                 </div>
                             </motion.nav>
